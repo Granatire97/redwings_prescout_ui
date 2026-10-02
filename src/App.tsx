@@ -32,6 +32,7 @@ import {
   YAxis,
 } from "recharts";
 import { HalfRink, NetFront } from "./components/Rinks";
+import { mph, pct, rank, signed, toi } from "./lib/format";
 import type {
   Confidence,
   GmPlayer,
@@ -127,6 +128,25 @@ function StatValue<T>({
   );
 }
 
+function FactValue({
+  value,
+  className = "",
+  format,
+  isEstimate,
+}: {
+  value: number | string | boolean;
+  className?: string;
+  format?: (value: number) => ReactNode;
+  isEstimate?: boolean;
+}) {
+  return (
+    <span className={`stat-value ${className}`}>
+      <span>{format && typeof value === "number" ? format(value) : String(value)}</span>
+      {isEstimate && <span className="stat-meta"><span className="estimate">Estimate</span></span>}
+    </span>
+  );
+}
+
 function Card({
   children,
   className = "",
@@ -202,16 +222,16 @@ function TrendIcon({ value }: { value: "up" | "down" | "flat" }) {
 }
 
 function PlayerPill({ player }: { player: SummaryData["forwardLines"][number][number] }) {
+  const difference = player.toiLast5 - player.toiSeason;
+  const trend = difference > 30 ? "up" : difference < -30 ? "down" : "flat";
   return (
     <div className="lineup-player">
-      <span className="position">{player.position}</span>
-      <span className="player-name">{player.name}</span>
+      <span className="position">{player.player.position}</span>
+      <span className="player-name">{player.player.name}</span>
       <span className="toi">
-        {player.toi.value}
-        <TrendIcon value={player.trend.value} />
+        {toi(player.toiSeason)}
+        <TrendIcon value={trend} />
       </span>
-      <span className="player-meta"><StatMeta stat={player.toi} /></span>
-      <span className="player-meta trend-meta"><StatMeta stat={player.trend} /></span>
     </div>
   );
 }
@@ -219,10 +239,10 @@ function PlayerPill({ player }: { player: SummaryData["forwardLines"][number][nu
 function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
   if (!data) return <EmptyState />;
   const quickStats = [
-    { label: "Record", stat: data.record },
-    { label: "Last 10", stat: data.lastTen },
-    { label: "Rest", stat: data.restDays, suffix: " day" },
-    { label: "Back-to-back", stat: data.backToBack, boolean: true },
+    { label: "Record", value: `${data.record.wins}–${data.record.losses}–${data.record.otLosses}` },
+    { label: "Last 10", value: `${data.lastTen.wins}–${data.lastTen.losses}–${data.lastTen.otLosses}` },
+    { label: "Rest", value: `${data.restDays} day` },
+    { label: "Back-to-back", value: data.backToBack ? "Yes" : "No" },
   ];
   return (
     <div className="summary-screen">
@@ -230,22 +250,16 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
         {quickStats.map((item) => (
           <div className="quick-stat" key={item.label}>
             <span className="quick-label">{item.label}</span>
-            <StatValue
-              stat={item.stat}
-              className="quick-value"
-              format={(value) => item.boolean ? (value ? "Yes" : "No") : `${String(value)}${item.suffix ?? ""}`}
-            />
+            <FactValue value={item.value} className="quick-value" />
           </div>
         ))}
         <div className="quick-stat special">
           <span className="quick-label">Power play</span>
-          <div className="rank-row"><StatValue stat={data.powerPlay} className="quick-value" /><span>{data.powerPlayRank.value}</span></div>
-          <StatMeta stat={data.powerPlayRank} />
+          <div className="rank-row"><StatValue stat={data.powerPlay} className="quick-value" format={pct} /><span>{rank(data.powerPlayRank)}</span></div>
         </div>
         <div className="quick-stat special">
           <span className="quick-label">Penalty kill</span>
-          <div className="rank-row"><StatValue stat={data.penaltyKill} className="quick-value" /><span>{data.penaltyKillRank.value}</span></div>
-          <StatMeta stat={data.penaltyKillRank} />
+          <div className="rank-row"><StatValue stat={data.penaltyKill} className="quick-value" format={pct} /><span>{rank(data.penaltyKillRank)}</span></div>
         </div>
       </div>
 
@@ -259,7 +273,7 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
                   <div className="key-title">{key.title}</div>
                   <div className="key-insight">{key.insight}</div>
                 </div>
-                <StatValue stat={key.stat} className="key-stat" />
+                <StatValue stat={key.stat} className="key-stat" format={pct} />
               </div>
             ))}
           </div>
@@ -270,13 +284,13 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
             <div className="goalie-row">
               <div className="goalie-mark"><Goal size={23} /></div>
               <div>
-                <div className="goalie-name">{data.goalie.name}</div>
-                <StatValue stat={data.goalie.startConfidence} className="starter-status" />
+                <div className="goalie-name">{data.goalie.player.name}</div>
+                <FactValue value={data.goalie.startConfidence} className="starter-status" isEstimate={data.goalie.isEstimate} />
               </div>
             </div>
             <div className="goalie-stats">
-              <div><span>Season SV%</span><StatValue stat={data.goalie.savePct} /></div>
-              <div><span>Last 10 SV%</span><StatValue stat={data.goalie.lastTenSavePct} /></div>
+              <div><span>Season SV%</span><StatValue stat={data.goalie.savePct} format={(value) => value.toFixed(3)} /></div>
+              <div><span>Last 10 SV%</span><StatValue stat={data.goalie.lastTenSavePct} format={(value) => value.toFixed(3)} /></div>
             </div>
           </Card>
           <Card title="Projected lineup" eyebrow="Latest combinations" className="lineup-card">
@@ -286,7 +300,7 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
                 {data.forwardLines.map((line, index) => (
                   <div className="line-row" key={`F${index}`}>
                     <span className="line-number">F{index + 1}</span>
-                    {line.map((player) => <PlayerPill key={player.name} player={player} />)}
+                    {line.map((player) => <PlayerPill key={player.player.playerId} player={player} />)}
                   </div>
                 ))}
               </div>
@@ -295,7 +309,7 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
                 {data.defensePairs.map((pair, index) => (
                   <div className="line-row defense" key={`D${index}`}>
                     <span className="line-number">D{index + 1}</span>
-                    {pair.map((player) => <PlayerPill key={player.name} player={player} />)}
+                    {pair.map((player) => <PlayerPill key={player.player.playerId} player={player} />)}
                   </div>
                 ))}
                 <div className="trend-legend">
@@ -324,7 +338,7 @@ function SpecialTeamsPage({ data }: { data: PrescoutData["coach"]["specialTeams"
             <Card title={unit.name} eyebrow="Projected personnel" key={unit.name}>
               <div className="unit-row">
                 {unit.players.map((player, index) => (
-                  <div className="unit-player" key={player}><span>{index + 1}</span>{player}</div>
+                  <div className="unit-player" key={player.playerId}><span>{index + 1}</span>{player.name}</div>
                 ))}
               </div>
             </Card>
@@ -333,24 +347,24 @@ function SpecialTeamsPage({ data }: { data: PrescoutData["coach"]["specialTeams"
             <div className="data-table">
               <div className="table-row table-head"><span>Player</span><span>Taken</span><span>Drawn</span><span>Most likely</span></div>
               {data.penalties.map((row) => (
-                <div className="table-row" key={row.player}>
-                  <strong>{row.player}</strong>
-                  <StatValue stat={row.taken} />
-                  <StatValue stat={row.drawn} />
-                  <StatValue stat={row.period} />
+                <div className="table-row" key={row.player.playerId}>
+                  <strong>{row.player.name}</strong>
+                  <FactValue value={row.taken} />
+                  <FactValue value={row.drawn} />
+                  <FactValue value={Object.entries(row.byPeriod).sort((a, b) => b[1] - a[1])[0][0].toUpperCase()} />
                 </div>
               ))}
             </div>
           </Card>
         </div>
         <div className="stack">
-          <Card title="Power-play shot map" eyebrow="Dot size = danger">
+          <Card title="Power-play shot map" eyebrow="Dot size = xG">
             <HalfRink points={data.shotMap} className="rink-chart" />
           </Card>
           <Card title="PK zone time" eyebrow="Average per opposition entry">
             <div className="comparison-stat">
-              <div><span>Ottawa</span><StatValue stat={data.zoneTime} className="hero-stat" /></div>
-              <div><span>League</span><StatValue stat={data.leagueZoneTime} className="hero-stat muted" /></div>
+              <div><span>Ottawa</span><StatValue stat={data.zoneTimePct} className="hero-stat" format={pct} /></div>
+              <div><span>League</span><StatValue stat={data.leagueZoneTimePct} className="hero-stat muted" format={pct} /></div>
             </div>
           </Card>
         </div>
@@ -362,6 +376,16 @@ function SpecialTeamsPage({ data }: { data: PrescoutData["coach"]["specialTeams"
 
 function FaceoffsPage({ data }: { data: PrescoutData["coach"]["faceoffs"] }) {
   if (!data) return <EmptyState />;
+  const matrixRows = data.centers.map((center) => ({
+    player: center.player,
+    values: data.detroitCenters.map((detroit) =>
+      data.matchupMatrix.find(
+        (matchup) =>
+          matchup.opponentPlayerId === center.player.playerId &&
+          matchup.detroitPlayerId === detroit.playerId,
+      ),
+    ),
+  }));
   return (
     <>
       <PageHeader eyebrow="Coach report" title="Faceoffs" description="Zone, strength and head-to-head matchup tendencies." />
@@ -370,24 +394,24 @@ function FaceoffsPage({ data }: { data: PrescoutData["coach"]["faceoffs"] }) {
           <div className="data-table centers">
             <div className="table-row table-head"><span>Center</span><span>Overall</span><span>OZ</span><span>NZ</span><span>DZ</span><span>5v5</span><span>PP</span><span>PK</span></div>
             {data.centers.map((center) => (
-              <div className="table-row" key={center.name}>
-                <strong>{center.name}</strong>
-                {[center.overall, center.offensiveZone, center.neutralZone, center.defensiveZone, center.evenStrength, center.powerPlay, center.penaltyKill].map((stat, index) => <StatValue stat={stat} key={index} />)}
+              <div className="table-row" key={center.player.playerId}>
+                <strong>{center.player.name}</strong>
+                {[center.overall, center.offensiveZone, center.neutralZone, center.defensiveZone, center.evenStrength, center.powerPlay, center.penaltyKill].map((stat, index) => <StatValue stat={stat} format={pct} key={index} />)}
               </div>
             ))}
           </div>
         </Card>
         <Card title="OZ win → shot attempt" eyebrow="Within 10 seconds">
-          <StatValue stat={data.postWinShotAttempts} className="standalone-stat" />
+          <StatValue stat={data.postWinShotAttempts} className="standalone-stat" format={pct} />
           <div className="callout-copy">Ottawa creates immediate offense on nearly one in three offensive-zone wins.</div>
         </Card>
         <Card title="Matchup matrix" eyebrow="Ottawa win percentage" className="span-3">
           <div className="matrix">
-            <div className="matrix-row matrix-head"><span>Ottawa \\ Detroit</span>{data.detroitCenters.map((name) => <span key={name}>{name}</span>)}</div>
-            {data.matchupMatrix.map((row) => (
-              <div className="matrix-row" key={row.opponent}>
-                <strong>{row.opponent}</strong>
-                {row.values.map((stat, index) => <StatValue stat={stat} key={index} />)}
+            <div className="matrix-row matrix-head"><span>Ottawa \\ Detroit</span>{data.detroitCenters.map((player) => <span key={player.playerId}>{player.name}</span>)}</div>
+            {matrixRows.map((row) => (
+              <div className="matrix-row" key={row.player.playerId}>
+                <strong>{row.player.name}</strong>
+                {row.values.map((matchup, index) => matchup ? <StatValue stat={matchup.winPct} format={pct} key={index} /> : <span key={index}>—</span>)}
               </div>
             ))}
           </div>
@@ -402,16 +426,16 @@ function GoaliePage({ data }: { data: PrescoutData["coach"]["goalie"] }) {
   if (!data) return <EmptyState />;
   return (
     <>
-      <PageHeader eyebrow="Coach report" title={data.name} description="Save profile, recent form and shot-type performance." />
+      <PageHeader eyebrow="Coach report" title={data.player.name} description="Save profile, recent form and shot-type performance." />
       <div className="dashboard-grid goalie-grid">
         <Card title="Save percentage by zone" eyebrow="Season" className="net-card">
-          <NetFront zones={data.zones.map((zone) => ({ label: zone.label, x: zone.x, y: zone.y, value: zone.stat.value }))} className="net-chart" />
-          <div className="zone-meta">{data.zones.map((zone) => <div key={zone.label}><span>{zone.label}</span><StatMeta stat={zone.stat} /></div>)}</div>
+          <NetFront zones={data.zones.map((zone) => ({ zoneId: zone.zoneId, value: zone.savePct.value.toFixed(3) }))} className="net-chart" />
+          <div className="zone-meta">{data.zones.map((zone) => <div key={zone.zoneId}><span>{zone.zoneId.replace(/_/g, " ")}</span><StatMeta stat={zone.savePct} /></div>)}</div>
         </Card>
         <Card title="Last 10 starts" eyebrow="Game-by-game save percentage" className="span-2">
           <div className="line-chart">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={data.lastTen}>
+              <LineChart data={data.lastTen.map((point) => ({ label: point.label, value: point.value.value }))}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="var(--line)" />
                 <XAxis dataKey="label" tick={{ fill: "var(--muted)", fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis domain={["dataMin - 0.01", "dataMax + 0.01"]} tick={{ fill: "var(--muted)", fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -423,7 +447,7 @@ function GoaliePage({ data }: { data: PrescoutData["coach"]["goalie"] }) {
         </Card>
         <Card title="Save percentage by shot type" eyebrow="Shot classification" className="span-3">
           <div className="shot-type-grid">
-            {data.shotTypes.map((item) => <div key={item.type}><span>{item.type}</span><StatValue stat={item.stat} /></div>)}
+            {data.shotTypes.map((item) => <div key={item.type}><span>{item.type}</span><StatValue stat={item.savePct} format={(value) => value.toFixed(3)} /></div>)}
           </div>
         </Card>
       </div>
@@ -435,7 +459,7 @@ function GoaliePage({ data }: { data: PrescoutData["coach"]["goalie"] }) {
 function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
   if (!data) return <EmptyState />;
   const shotChart = data.shotRates.map((item) => ({ state: item.state, for: item.for.value, against: item.against.value }));
-  const goalChart = data.goalsByPeriod.map((item) => ({ period: item.period, for: item.for.value, against: item.against.value }));
+  const goalChart = data.goalsByPeriod.map((item) => ({ period: item.period, for: item.for, against: item.against }));
   return (
     <>
       <PageHeader eyebrow="Coach report" title="Game State" description="How Ottawa's behavior changes with the score and clock." />
@@ -456,8 +480,8 @@ function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
           <div className="chart-meta">{data.shotRates.map((row) => <span key={row.state}>{row.state}: <StatMeta stat={row.for} /> <StatMeta stat={row.against} /></span>)}</div>
         </Card>
         <Card title="Empty-net pull" eyebrow="Median trigger">
-          <StatValue stat={data.emptyNetPull} className="standalone-stat compact" />
-          <div className="benchmark"><span>League benchmark</span><StatValue stat={data.leagueEmptyNetPull} /></div>
+          <FactValue value={data.emptyNetPull} className="standalone-stat compact" format={toi} />
+          <div className="benchmark"><span>League benchmark</span><FactValue value={data.leagueEmptyNetPull} format={toi} /></div>
         </Card>
         <Card title="Goals by period" eyebrow="For vs against" className="span-3">
           <div className="goals-layout">
@@ -472,7 +496,7 @@ function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div className="period-meta">{data.goalsByPeriod.map((row) => <div key={row.period}><strong>{row.period}</strong><StatValue stat={row.for} /><StatValue stat={row.against} /></div>)}</div>
+            <div className="period-meta">{data.goalsByPeriod.map((row) => <div key={row.period}><strong>{row.period}</strong><FactValue value={row.for} /><FactValue value={row.against} /></div>)}</div>
           </div>
         </Card>
       </div>
@@ -490,10 +514,10 @@ function PlayerTargetsPage({ data }: { data: PrescoutData["coach"]["playerTarget
         <Card title="Pressure these players" eyebrow="Turnover-prone defensemen">
           <div className="target-list">
             {data.pressure.map((player, index) => (
-              <div className="target-row" key={player.name}>
+              <div className="target-row" key={player.player.playerId}>
                 <div className="target-number">{index + 1}</div>
-                <div className="target-copy"><div><strong>{player.name}</strong><span>{player.position}</span></div><p>{player.forecheckNote}</p></div>
-                <div className="target-stat"><span>Giveaways</span><StatValue stat={player.giveaways} /></div>
+                <div className="target-copy"><div><strong>{player.player.name}</strong><span>{player.player.position}</span></div><p>{player.forecheckNote}</p></div>
+                <div className="target-stat"><span>Giveaways</span><FactValue value={player.giveaways} /></div>
               </div>
             ))}
           </div>
@@ -501,10 +525,10 @@ function PlayerTargetsPage({ data }: { data: PrescoutData["coach"]["playerTarget
         <Card title="Watch these players" eyebrow="Speed and shooting threats">
           <div className="target-list">
             {data.watch.map((player, index) => (
-              <div className="target-row" key={player.name}>
+              <div className="target-row" key={player.player.playerId}>
                 <div className="target-number danger">{index + 1}</div>
-                <div className="target-copy"><div><strong>{player.name}</strong><span>{player.position}</span></div><p>{player.threatNote}</p></div>
-                <div className="dual-target-stat"><div><span>Top speed</span><StatValue stat={player.topSpeed} /></div><div><span>Shot speed</span><StatValue stat={player.shotSpeed} /></div></div>
+                <div className="target-copy"><div><strong>{player.player.name}</strong><span>{player.player.position}</span></div><p>{player.threatNote}</p></div>
+                <div className="dual-target-stat"><div><span>Top speed</span><FactValue value={player.topSpeed} format={mph} /></div><div><span>Shot speed</span><FactValue value={player.shotSpeed} format={mph} /></div></div>
               </div>
             ))}
           </div>
@@ -525,26 +549,26 @@ function GmSummaryPage({ data }: { data: PrescoutData["gm"] }) {
         <Card title="Is this team for real?" eyebrow="Performance vs expected" className="span-2">
           {summary ? (
             <div className="sustainability">
-              <div className="sustain-pair"><span>Shooting</span><StatValue stat={summary.sustainability.shootingPct} className="hero-stat" /><div>Expected <StatValue stat={summary.sustainability.expectedShootingPct} /></div></div>
-              <div className="sustain-pair"><span>Save percentage</span><StatValue stat={summary.sustainability.savePct} className="hero-stat" /><div>Expected <StatValue stat={summary.sustainability.expectedSavePct} /></div></div>
-              <div className="sustain-pair"><span>PDO</span><StatValue stat={summary.sustainability.pdo} className="hero-stat" /><div>Expected <StatValue stat={summary.sustainability.expectedPdo} /></div></div>
-              <div className="regression-box"><TrendingUp size={20} /><div><span>Regression outlook</span><StatValue stat={summary.sustainability.regressionFlag} /></div></div>
+              <div className="sustain-pair"><span>Shooting</span><StatValue stat={summary.sustainability.shootingPct} className="hero-stat" format={pct} /><div>Expected <StatValue stat={summary.sustainability.expectedShootingPct} format={pct} /></div></div>
+              <div className="sustain-pair"><span>Save percentage</span><StatValue stat={summary.sustainability.savePct} className="hero-stat" format={(value) => value.toFixed(3)} /><div>Expected <StatValue stat={summary.sustainability.expectedSavePct} format={(value) => value.toFixed(3)} /></div></div>
+              <div className="sustain-pair"><span>PDO</span><StatValue stat={summary.sustainability.pdo} className="hero-stat" format={(value) => (value * 100).toFixed(1)} /><div>Expected <StatValue stat={summary.sustainability.expectedPdo} format={(value) => (value * 100).toFixed(1)} /></div></div>
+              <div className="regression-box"><TrendingUp size={20} /><div><span>Regression outlook</span><FactValue value={summary.sustainability.regressionFlag} /></div></div>
             </div>
           ) : <EmptyState />}
         </Card>
         <Card title="Standings impact" eyebrow="Today">
           {data.standings ? (
-            <><div className="standings-numbers"><div><span>Points pace</span><StatValue stat={data.standings.pointsPace} className="standalone-stat compact" /></div><div><span>Playoff line</span><StatValue stat={data.standings.playoffGap} className="standalone-stat compact" /></div></div><div className="meaning"><strong>For Ottawa</strong><p>{data.standings.opponentMeaning}</p><strong>For Detroit</strong><p>{data.standings.detroitMeaning}</p></div></>
+            <><div className="standings-numbers"><div><span>Points pace</span><FactValue value={data.standings.pointsPace} className="standalone-stat compact" isEstimate={data.standings.pointsPaceIsEstimate} /></div><div><span>Playoff line</span><FactValue value={data.standings.playoffGap} className="standalone-stat compact" format={(value) => signed(value, " points")} /></div></div><div className="meaning"><strong>For Ottawa</strong><p>{data.standings.opponentMeaning}</p><strong>For Detroit</strong><p>{data.standings.detroitMeaning}</p></div></>
           ) : <EmptyState />}
         </Card>
         <Card title="Last five games: roster movement" eyebrow="Availability signals" className="span-2">
           {data.rosterChanges ? (
-            <div className="timeline">{data.rosterChanges.changes.map((change) => <div className="timeline-row" key={`${change.date}-${change.player}`}><span className="timeline-date">{change.date}</span><span className="timeline-dot" /><div><strong>{change.player}</strong><span>{change.change}</span><p>{change.detail}</p></div><StatValue stat={change.status} /></div>)}</div>
+            <div className="timeline">{data.rosterChanges.changes.map((change) => <div className="timeline-row" key={`${change.date}-${change.player.playerId}`}><span className="timeline-date">{change.date}</span><span className="timeline-dot" /><div><strong>{change.player.name}</strong><span>{change.change}</span><p>{change.detail}</p></div><FactValue value={change.status} isEstimate={change.isEstimate} /></div>)}</div>
           ) : <EmptyState />}
         </Card>
         <Card title="Head-to-head" eyebrow="Recent meetings">
           {data.headToHead ? (
-            <div className="meetings">{data.headToHead.meetings.map((meeting) => <div className="meeting" key={`${meeting.season}-${meeting.date}`}><div><span>{meeting.season} · {meeting.date}</span><strong>{meeting.result}</strong></div><div><span>Shots</span><StatValue stat={meeting.shots} /></div><div><span>xG</span><StatValue stat={meeting.expectedGoals} /></div><div><span>Special teams</span><StatValue stat={meeting.specialTeams} /></div></div>)}</div>
+            <div className="meetings">{data.headToHead.meetings.map((meeting) => <div className="meeting" key={`${meeting.season}-${meeting.date}`}><div><span>{meeting.season} · {meeting.date}</span><strong>{meeting.result}</strong></div><div><span>Shots</span><FactValue value={`${meeting.shots.opponent}–${meeting.shots.detroit} OTT`} /></div><div><span>xG</span><FactValue value={`${meeting.expectedGoals.opponent.toFixed(1)}–${meeting.expectedGoals.detroit.toFixed(1)} OTT`} isEstimate={meeting.expectedGoals.isEstimate} /></div><div><span>Special teams</span><FactValue value={`OTT ${meeting.specialTeams.opponentGoals}/${meeting.specialTeams.opponentOpportunities} · DET ${meeting.specialTeams.detroitGoals}/${meeting.specialTeams.detroitOpportunities}`} /></div></div>)}</div>
           ) : <EmptyState />}
         </Card>
       </div>
@@ -556,15 +580,15 @@ function GmSummaryPage({ data }: { data: PrescoutData["gm"] }) {
 function PlayerEvaluationPage({ players }: { players: PrescoutData["gm"]["players"] }) {
   const [query, setQuery] = useState("");
   const [sortKey, setSortKey] = useState<"name" | "position" | "age">("name");
-  const [selectedId, setSelectedId] = useState<string | null>(players?.[0]?.id ?? null);
-  const [watchList, setWatchList] = useState<string[]>([]);
+  const [selectedId, setSelectedId] = useState<number | null>(players?.[0]?.player.playerId ?? null);
+  const [watchList, setWatchList] = useState<number[]>([]);
   const filtered = useMemo(() => {
     if (!players) return [];
     return players
-      .filter((player) => player.name.toLowerCase().includes(query.toLowerCase()) || player.position.toLowerCase().includes(query.toLowerCase()))
-      .sort((a, b) => sortKey === "age" ? a.age.value - b.age.value : a[sortKey].localeCompare(b[sortKey]));
+      .filter((item) => item.player.name.toLowerCase().includes(query.toLowerCase()) || item.player.position.toLowerCase().includes(query.toLowerCase()))
+      .sort((a, b) => sortKey === "age" ? a.age - b.age : a.player[sortKey].localeCompare(b.player[sortKey]));
   }, [players, query, sortKey]);
-  const selected = players?.find((player) => player.id === selectedId) ?? filtered[0];
+  const selected = players?.find((item) => item.player.playerId === selectedId) ?? filtered[0];
 
   if (!players) return <EmptyState />;
   return (
@@ -576,15 +600,15 @@ function PlayerEvaluationPage({ players }: { players: PrescoutData["gm"]["player
           <div className="sort-row"><span>Sort by</span>{(["name", "position", "age"] as const).map((key) => <Button key={key} onClick={() => setSortKey(key)} className={sortKey === key ? "active" : ""}>{key}</Button>)}</div>
           <div className="player-list">
             {filtered.map((player) => (
-              <Button key={player.id} onClick={() => setSelectedId(player.id)} className={`player-list-item ${selected?.id === player.id ? "selected" : ""}`}>
-                <div className="avatar">{player.name.split(" ").map((part) => part[0]).join("")}</div>
-                <div><strong>{player.name}</strong><span>{player.position}</span></div>
+              <Button key={player.player.playerId} onClick={() => setSelectedId(player.player.playerId)} className={`player-list-item ${selected?.player.playerId === player.player.playerId ? "selected" : ""}`}>
+                <div className="avatar">{player.player.name.split(" ").map((part) => part[0]).join("")}</div>
+                <div><strong>{player.player.name}</strong><span>{player.player.position}</span></div>
                 <ChevronRight size={16} />
               </Button>
             ))}
           </div>
         </Card>
-        {selected && <PlayerProfile player={selected} saved={watchList.includes(selected.id)} onSave={() => setWatchList((current) => current.includes(selected.id) ? current.filter((id) => id !== selected.id) : [...current, selected.id])} />}
+        {selected && <PlayerProfile player={selected} saved={watchList.includes(selected.player.playerId)} onSave={() => setWatchList((current) => current.includes(selected.player.playerId) ? current.filter((id) => id !== selected.player.playerId) : [...current, selected.player.playerId])} />}
       </div>
     </>
   );
@@ -595,20 +619,20 @@ function PlayerProfile({ player, saved, onSave }: { player: GmPlayer; saved: boo
     <div className="profile-stack">
       <Card className="profile-hero">
         <div className="profile-title">
-          <div className="avatar large">{player.name.split(" ").map((part) => part[0]).join("")}</div>
-          <div><div className="eyebrow">Opponent profile</div><div className="profile-name">{player.name}</div><div className="profile-sub">{player.position} · Age <StatValue stat={player.age} /></div></div>
+          <div className="avatar large">{player.player.name.split(" ").map((part) => part[0]).join("")}</div>
+          <div><div className="eyebrow">Opponent profile</div><div className="profile-name">{player.player.name}</div><div className="profile-sub">{player.player.position} · Age <FactValue value={player.age} /></div></div>
         </div>
         <Button className={`watch-button ${saved ? "saved" : ""}`} onClick={onSave}><Star size={16} fill={saved ? "currentColor" : "none"} />{saved ? "Saved to watch list" : "Save to watch list"}</Button>
       </Card>
       <div className="profile-grid">
         <Card title="Usage" eyebrow="Time on ice by strength">
-          <div className="usage-grid"><div><span>Even strength</span><StatValue stat={player.toi.evenStrength} /></div><div><span>Power play</span><StatValue stat={player.toi.powerPlay} /></div><div><span>Penalty kill</span><StatValue stat={player.toi.penaltyKill} /></div></div>
+          <div className="usage-grid"><div><span>Even strength</span><FactValue value={player.toi.evenStrength} format={toi} /></div><div><span>Power play</span><FactValue value={player.toi.powerPlay} format={toi} /></div><div><span>Penalty kill</span><FactValue value={player.toi.penaltyKill} format={toi} /></div></div>
         </Card>
         <Card title="On-ice results" eyebrow="Season">
-          <div className="results-grid"><div><span>Zone starts</span><StatValue stat={player.zoneStarts} /></div><div><span>Goals share</span><StatValue stat={player.onIceGoalsPct} /></div><div><span>Expected goals</span><StatValue stat={player.onIceExpectedGoalsPct} /></div></div>
+          <div className="results-grid"><div><span>Zone starts</span><StatValue stat={player.zoneStarts} format={pct} /></div><div><span>Goals share</span><StatValue stat={player.onIceGoalsPct} format={pct} /></div><div><span>Expected goals</span><StatValue stat={player.onIceExpectedGoalsPct} format={pct} /></div></div>
         </Card>
         <Card title="Tracking" eyebrow="Peak readings">
-          <div className="tracking-grid"><div><Gauge size={18} /><span>Top speed</span><StatValue stat={player.topSpeed} /></div><div><Target size={18} /><span>Shot speed</span><StatValue stat={player.shotSpeed} /></div></div>
+          <div className="tracking-grid"><div><Gauge size={18} /><span>Top speed</span><FactValue value={player.topSpeed} format={mph} /></div><div><Target size={18} /><span>Shot speed</span><FactValue value={player.shotSpeed} format={mph} /></div></div>
         </Card>
         <Card title="Shot locations" eyebrow="Season" className="shot-map-card">
           <HalfRink points={player.shotMap} className="rink-chart profile-rink" />
@@ -663,7 +687,7 @@ function AppShell({ data }: { data: PrescoutData }) {
         <header className="topbar">
           <div className="opponent-block">
             <span>Next opponent</span>
-            <div><strong>{data.meta.opponent}</strong><span className="game-chip">{data.meta.homeAway === "home" ? "Home" : "Away"}</span></div>
+            <div><strong>{data.meta.opponent.name}</strong><span className="game-chip">{data.meta.homeAway === "home" ? "Home" : "Away"}</span></div>
           </div>
           <div className="topbar-right">
             <div className="game-time"><span>{gameDate}</span><small>Report generated {new Date(data.meta.generatedAt).toLocaleDateString()}</small></div>

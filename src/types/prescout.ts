@@ -7,84 +7,103 @@ export interface Stat<T> {
   isEstimate?: boolean;
 }
 
+export interface Team {
+  teamId: number;
+  code: string;
+  name: string;
+}
+
+export interface Player {
+  playerId: number;
+  name: string;
+  position: string;
+}
+
 export interface RinkPoint {
   x: number;
   y: number;
-  danger: number;
+  xg: number;
 }
 
 export interface TrendPoint {
   label: string;
-  value: number;
+  value: Stat<number>;
 }
 
 export interface PlayerLineupEntry {
-  name: string;
-  position: string;
-  toi: Stat<string>;
-  trend: Stat<"up" | "down" | "flat">;
+  player: Player;
+  toiLast5: number;
+  toiSeason: number;
 }
 
 export interface SummaryData {
-  record: Stat<string>;
-  lastTen: Stat<string>;
-  restDays: Stat<number>;
-  backToBack: Stat<boolean>;
-  keys: Array<{ title: string; insight: string; stat: Stat<string> }>;
+  record: { wins: number; losses: number; otLosses: number };
+  lastTen: { wins: number; losses: number; otLosses: number };
+  restDays: number;
+  backToBack: boolean;
+  keys: Array<{
+    title: string;
+    insight: string;
+    stat: Stat<number>;
+  }>;
   forwardLines: PlayerLineupEntry[][];
   defensePairs: PlayerLineupEntry[][];
   goalie: {
-    name: string;
-    savePct: Stat<string>;
-    lastTenSavePct: Stat<string>;
-    startConfidence: Stat<string>;
+    player: Player;
+    savePct: Stat<number>;
+    lastTenSavePct: Stat<number>;
+    startConfidence: string;
+    isEstimate?: boolean;
   };
-  powerPlay: Stat<string>;
-  powerPlayRank: Stat<string>;
-  penaltyKill: Stat<string>;
-  penaltyKillRank: Stat<string>;
+  powerPlay: Stat<number>;
+  powerPlayRank: number;
+  penaltyKill: Stat<number>;
+  penaltyKillRank: number;
   videoChecks: string[];
 }
 
 export interface SpecialTeamsData {
-  powerPlayUnits: Array<{ name: string; players: string[] }>;
+  powerPlayUnits: Array<{ name: string; players: Player[] }>;
   shotMap: RinkPoint[];
-  zoneTime: Stat<string>;
-  leagueZoneTime: Stat<string>;
+  zoneTimePct: Stat<number>;
+  leagueZoneTimePct: Stat<number>;
   penalties: Array<{
-    player: string;
-    taken: Stat<number>;
-    drawn: Stat<number>;
-    period: Stat<string>;
+    player: Player;
+    taken: number;
+    drawn: number;
+    byPeriod: { p1: number; p2: number; p3: number; ot: number };
   }>;
   videoChecks: string[];
 }
 
 export interface FaceoffsData {
   centers: Array<{
-    name: string;
-    overall: Stat<string>;
-    offensiveZone: Stat<string>;
-    neutralZone: Stat<string>;
-    defensiveZone: Stat<string>;
-    evenStrength: Stat<string>;
-    powerPlay: Stat<string>;
-    penaltyKill: Stat<string>;
+    player: Player;
+    overall: Stat<number>;
+    offensiveZone: Stat<number>;
+    neutralZone: Stat<number>;
+    defensiveZone: Stat<number>;
+    evenStrength: Stat<number>;
+    powerPlay: Stat<number>;
+    penaltyKill: Stat<number>;
   }>;
-  detroitCenters: string[];
+  detroitCenters: Player[];
   matchupMatrix: Array<{
-    opponent: string;
-    values: Stat<string>[];
+    opponentPlayerId: number;
+    detroitPlayerId: number;
+    winPct: Stat<number>;
   }>;
-  postWinShotAttempts: Stat<string>;
+  postWinShotAttempts: Stat<number>;
   videoChecks: string[];
 }
 
+export type GoalieZoneId = "high_danger" | "mid_range" | "long_range";
+
 export interface GoalieData {
-  name: string;
-  zones: Array<{ label: string; x: number; y: number; stat: Stat<string> }>;
+  player: Player;
+  zones: Array<{ zoneId: GoalieZoneId; savePct: Stat<number> }>;
   lastTen: TrendPoint[];
-  shotTypes: Array<{ type: string; stat: Stat<string> }>;
+  shotTypes: Array<{ type: string; savePct: Stat<number> }>;
   videoChecks: string[];
 }
 
@@ -96,26 +115,24 @@ export interface GameStateData {
   }>;
   goalsByPeriod: Array<{
     period: string;
-    for: Stat<number>;
-    against: Stat<number>;
+    for: number;
+    against: number;
   }>;
-  emptyNetPull: Stat<string>;
-  leagueEmptyNetPull: Stat<string>;
+  emptyNetPull: number;
+  leagueEmptyNetPull: number;
   videoChecks: string[];
 }
 
 export interface PlayerTargetsData {
   pressure: Array<{
-    name: string;
-    position: string;
-    giveaways: Stat<number>;
+    player: Player;
+    giveaways: number;
     forecheckNote: string;
   }>;
   watch: Array<{
-    name: string;
-    position: string;
-    topSpeed: Stat<string>;
-    shotSpeed: Stat<string>;
+    player: Player;
+    topSpeed: number;
+    shotSpeed: number;
     threatNote: string;
   }>;
   videoChecks: string[];
@@ -123,13 +140,13 @@ export interface PlayerTargetsData {
 
 export interface GmSummaryData {
   sustainability: {
-    shootingPct: Stat<string>;
-    expectedShootingPct: Stat<string>;
-    savePct: Stat<string>;
-    expectedSavePct: Stat<string>;
+    shootingPct: Stat<number>;
+    expectedShootingPct: Stat<number>;
+    savePct: Stat<number>;
+    expectedSavePct: Stat<number>;
     pdo: Stat<number>;
     expectedPdo: Stat<number>;
-    regressionFlag: Stat<string>;
+    regressionFlag: string;
   };
   videoChecks: string[];
 }
@@ -137,16 +154,18 @@ export interface GmSummaryData {
 export interface RosterChangesData {
   changes: Array<{
     date: string;
-    player: string;
+    player: Player;
     change: string;
     detail: string;
-    status: Stat<string>;
+    status: string;
+    isEstimate?: boolean;
   }>;
 }
 
 export interface StandingsData {
-  pointsPace: Stat<number>;
-  playoffGap: Stat<string>;
+  pointsPace: number;
+  pointsPaceIsEstimate?: boolean;
+  playoffGap: number;
   opponentMeaning: string;
   detroitMeaning: string;
 }
@@ -156,37 +175,40 @@ export interface HeadToHeadData {
     season: string;
     date: string;
     result: string;
-    shots: Stat<string>;
-    expectedGoals: Stat<string>;
-    specialTeams: Stat<string>;
+    shots: { opponent: number; detroit: number };
+    expectedGoals: { opponent: number; detroit: number; isEstimate?: boolean };
+    specialTeams: {
+      opponentGoals: number;
+      opponentOpportunities: number;
+      detroitGoals: number;
+      detroitOpportunities: number;
+    };
   }>;
 }
 
 export interface GmPlayer {
-  id: string;
-  name: string;
-  position: string;
-  age: Stat<number>;
+  player: Player;
+  age: number;
   toi: {
-    evenStrength: Stat<string>;
-    powerPlay: Stat<string>;
-    penaltyKill: Stat<string>;
+    evenStrength: number;
+    powerPlay: number;
+    penaltyKill: number;
   };
-  zoneStarts: Stat<string>;
-  onIceGoalsPct: Stat<string>;
-  onIceExpectedGoalsPct: Stat<string>;
-  topSpeed: Stat<string>;
-  shotSpeed: Stat<string>;
+  zoneStarts: Stat<number>;
+  onIceGoalsPct: Stat<number>;
+  onIceExpectedGoalsPct: Stat<number>;
+  topSpeed: number;
+  shotSpeed: number;
   shotMap: RinkPoint[];
   notes: string;
 }
 
 export interface PrescoutData {
   meta: {
-    schemaVersion: string;
+    schemaVersion: "1.0.0";
     generatedAt: string;
-    team: string;
-    opponent: string;
+    team: Team;
+    opponent: Team;
     gameDate: string;
     homeAway: "home" | "away";
     dataThroughDate: string;

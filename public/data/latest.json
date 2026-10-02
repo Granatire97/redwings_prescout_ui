@@ -2,305 +2,1422 @@
   "meta": {
     "schemaVersion": "1.0.0",
     "generatedAt": "2025-02-21T08:15:00Z",
-    "team": "Detroit Red Wings",
-    "opponent": "Ottawa Senators",
+    "team": {
+      "teamId": 17,
+      "code": "DET",
+      "name": "Detroit Red Wings"
+    },
+    "opponent": {
+      "teamId": 9,
+      "code": "OTT",
+      "name": "Ottawa Senators"
+    },
     "gameDate": "2025-02-22T19:00:00-05:00",
     "homeAway": "home",
     "dataThroughDate": "2025-02-20"
   },
   "coach": {
     "summary": {
-      "record": { "value": "31–23–4", "sampleSize": 58, "confidence": "high" },
-      "lastTen": { "value": "7–2–1", "sampleSize": 10, "confidence": "high" },
-      "restDays": { "value": 1, "sampleSize": 58, "confidence": "high" },
-      "backToBack": { "value": false, "sampleSize": 12, "confidence": "high" },
+      "record": {
+        "wins": 31,
+        "losses": 23,
+        "otLosses": 4
+      },
+      "lastTen": {
+        "wins": 7,
+        "losses": 2,
+        "otLosses": 1
+      },
+      "restDays": 1,
+      "backToBack": false,
       "keys": [
-        { "title": "Deny the middle", "insight": "Ottawa creates its best offense off royal-road passes.", "stat": { "value": "38% slot assists", "sampleSize": 214, "confidence": "high" } },
-        { "title": "Stay out of the box", "insight": "Their first unit is converting above its season baseline.", "stat": { "value": "29.4% last 10", "sampleSize": 34, "confidence": "medium" } },
-        { "title": "Pressure the weak side", "insight": "Their exits break down when the second forechecker arrives.", "stat": { "value": "22% failed exits", "sampleSize": 91, "confidence": "medium" } },
-        { "title": "Own the first ten", "insight": "Ottawa has chased the game after slow starts.", "stat": { "value": "–7 first-period GD", "sampleSize": 58, "confidence": "high" } },
-        { "title": "Attack off OZ wins", "insight": "Detroit has a matchup edge against their second center.", "stat": { "value": "44.8% OZ draws", "sampleSize": 143, "confidence": "high" } },
-        { "title": "Make the goalie move", "insight": "Lateral plays expose a meaningful save-rate drop.", "stat": { "value": ".781 east–west SV%", "sampleSize": 64, "confidence": "medium" } }
+        {
+          "title": "Deny the middle",
+          "insight": "Ottawa creates its best offense off royal-road passes.",
+          "stat": {
+            "value": 0.38,
+            "sampleSize": 214,
+            "confidence": "high"
+          }
+        },
+        {
+          "title": "Stay out of the box",
+          "insight": "Their first unit is converting above its season baseline.",
+          "stat": {
+            "value": 0.294,
+            "sampleSize": 34,
+            "confidence": "medium"
+          }
+        },
+        {
+          "title": "Pressure the weak side",
+          "insight": "Their exits break down when the second forechecker arrives.",
+          "stat": {
+            "value": 0.22,
+            "sampleSize": 91,
+            "confidence": "medium"
+          }
+        },
+        {
+          "title": "Own the first ten",
+          "insight": "Ottawa has chased the game after slow starts.",
+          "stat": {
+            "value": 0.431,
+            "sampleSize": 58,
+            "confidence": "high"
+          }
+        },
+        {
+          "title": "Attack off OZ wins",
+          "insight": "Detroit has a matchup edge against their second center.",
+          "stat": {
+            "value": 0.448,
+            "sampleSize": 143,
+            "confidence": "high"
+          }
+        },
+        {
+          "title": "Make the goalie move",
+          "insight": "Lateral plays expose a meaningful save-rate drop.",
+          "stat": {
+            "value": 0.781,
+            "sampleSize": 64,
+            "confidence": "medium"
+          }
+        }
       ],
       "forwardLines": [
         [
-          { "name": "Brady Tkachuk", "position": "LW", "toi": { "value": "19:12", "sampleSize": 56, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Tim Stützle", "position": "C", "toi": { "value": "20:04", "sampleSize": 58, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "high" } },
-          { "name": "Claude Giroux", "position": "RW", "toi": { "value": "18:01", "sampleSize": 58, "confidence": "high" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "high" } }
+          {
+            "player": {
+              "playerId": 8478469,
+              "name": "Brady Tkachuk",
+              "position": "LW"
+            },
+            "toiLast5": 1199,
+            "toiSeason": 1152
+          },
+          {
+            "player": {
+              "playerId": 8482116,
+              "name": "Tim Stützle",
+              "position": "C"
+            },
+            "toiLast5": 1251,
+            "toiSeason": 1204
+          },
+          {
+            "player": {
+              "playerId": 8473512,
+              "name": "Claude Giroux",
+              "position": "RW"
+            },
+            "toiLast5": 1089,
+            "toiSeason": 1081
+          }
         ],
         [
-          { "name": "Drake Batherson", "position": "LW", "toi": { "value": "17:48", "sampleSize": 58, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Josh Norris", "position": "C", "toi": { "value": "17:22", "sampleSize": 49, "confidence": "high" }, "trend": { "value": "down", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Michael Amadio", "position": "RW", "toi": { "value": "13:41", "sampleSize": 55, "confidence": "high" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "medium" } }
+          {
+            "player": {
+              "playerId": 8479366,
+              "name": "Drake Batherson",
+              "position": "LW"
+            },
+            "toiLast5": 1115,
+            "toiSeason": 1068
+          },
+          {
+            "player": {
+              "playerId": 8480064,
+              "name": "Josh Norris",
+              "position": "C"
+            },
+            "toiLast5": 996,
+            "toiSeason": 1042
+          },
+          {
+            "player": {
+              "playerId": 8476879,
+              "name": "Michael Amadio",
+              "position": "RW"
+            },
+            "toiLast5": 829,
+            "toiSeason": 821
+          }
         ],
         [
-          { "name": "Ridly Greig", "position": "LW", "toi": { "value": "13:52", "sampleSize": 52, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Shane Pinto", "position": "C", "toi": { "value": "15:18", "sampleSize": 50, "confidence": "high" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Nick Cousins", "position": "RW", "toi": { "value": "11:04", "sampleSize": 47, "confidence": "medium" }, "trend": { "value": "down", "sampleSize": 5, "confidence": "low" } }
+          {
+            "player": {
+              "playerId": 8482175,
+              "name": "Ridly Greig",
+              "position": "LW"
+            },
+            "toiLast5": 879,
+            "toiSeason": 832
+          },
+          {
+            "player": {
+              "playerId": 8481596,
+              "name": "Shane Pinto",
+              "position": "C"
+            },
+            "toiLast5": 926,
+            "toiSeason": 918
+          },
+          {
+            "player": {
+              "playerId": 8476393,
+              "name": "Nick Cousins",
+              "position": "RW"
+            },
+            "toiLast5": 618,
+            "toiSeason": 664
+          }
         ],
         [
-          { "name": "Noah Gregor", "position": "LW", "toi": { "value": "9:28", "sampleSize": 43, "confidence": "medium" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "low" } },
-          { "name": "Adam Gaudette", "position": "C", "toi": { "value": "10:37", "sampleSize": 38, "confidence": "medium" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "low" } },
-          { "name": "Matthew Highmore", "position": "RW", "toi": { "value": "8:42", "sampleSize": 18, "confidence": "low", "isEstimate": true }, "trend": { "value": "up", "sampleSize": 5, "confidence": "low", "isEstimate": true } }
+          {
+            "player": {
+              "playerId": 8479393,
+              "name": "Noah Gregor",
+              "position": "LW"
+            },
+            "toiLast5": 576,
+            "toiSeason": 568
+          },
+          {
+            "player": {
+              "playerId": 8478874,
+              "name": "Adam Gaudette",
+              "position": "C"
+            },
+            "toiLast5": 684,
+            "toiSeason": 637
+          },
+          {
+            "player": {
+              "playerId": 8478007,
+              "name": "Matthew Highmore",
+              "position": "RW"
+            },
+            "toiLast5": 569,
+            "toiSeason": 522
+          }
         ]
       ],
       "defensePairs": [
         [
-          { "name": "Jake Sanderson", "position": "LD", "toi": { "value": "24:08", "sampleSize": 58, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "high" } },
-          { "name": "Artem Zub", "position": "RD", "toi": { "value": "20:16", "sampleSize": 44, "confidence": "high" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "medium" } }
+          {
+            "player": {
+              "playerId": 8482105,
+              "name": "Jake Sanderson",
+              "position": "LD"
+            },
+            "toiLast5": 1495,
+            "toiSeason": 1448
+          },
+          {
+            "player": {
+              "playerId": 8482245,
+              "name": "Artem Zub",
+              "position": "RD"
+            },
+            "toiLast5": 1224,
+            "toiSeason": 1216
+          }
         ],
         [
-          { "name": "Thomas Chabot", "position": "LD", "toi": { "value": "23:01", "sampleSize": 51, "confidence": "high" }, "trend": { "value": "down", "sampleSize": 5, "confidence": "medium" } },
-          { "name": "Nick Jensen", "position": "RD", "toi": { "value": "20:44", "sampleSize": 55, "confidence": "high" }, "trend": { "value": "up", "sampleSize": 5, "confidence": "medium" } }
+          {
+            "player": {
+              "playerId": 8478489,
+              "name": "Thomas Chabot",
+              "position": "LD"
+            },
+            "toiLast5": 1335,
+            "toiSeason": 1381
+          },
+          {
+            "player": {
+              "playerId": 8475324,
+              "name": "Nick Jensen",
+              "position": "RD"
+            },
+            "toiLast5": 1291,
+            "toiSeason": 1244
+          }
         ],
         [
-          { "name": "Tyler Kleven", "position": "LD", "toi": { "value": "16:11", "sampleSize": 41, "confidence": "medium" }, "trend": { "value": "flat", "sampleSize": 5, "confidence": "low" } },
-          { "name": "Travis Hamonic", "position": "RD", "toi": { "value": "15:39", "sampleSize": 33, "confidence": "medium" }, "trend": { "value": "down", "sampleSize": 5, "confidence": "medium" } }
+          {
+            "player": {
+              "playerId": 8482781,
+              "name": "Tyler Kleven",
+              "position": "LD"
+            },
+            "toiLast5": 979,
+            "toiSeason": 971
+          },
+          {
+            "player": {
+              "playerId": 8474612,
+              "name": "Travis Hamonic",
+              "position": "RD"
+            },
+            "toiLast5": 893,
+            "toiSeason": 939
+          }
         ]
       ],
       "goalie": {
-        "name": "Linus Ullmark",
-        "savePct": { "value": ".914", "sampleSize": 34, "confidence": "high" },
-        "lastTenSavePct": { "value": ".921", "sampleSize": 10, "confidence": "high" },
-        "startConfidence": { "value": "Likely", "sampleSize": 8, "confidence": "medium", "isEstimate": true }
+        "player": {
+          "playerId": 8476999,
+          "name": "Linus Ullmark",
+          "position": "G"
+        },
+        "savePct": {
+          "value": 0.914,
+          "sampleSize": 34,
+          "confidence": "high"
+        },
+        "lastTenSavePct": {
+          "value": 0.921,
+          "sampleSize": 10,
+          "confidence": "high"
+        },
+        "startConfidence": "Likely",
+        "isEstimate": true
       },
-      "powerPlay": { "value": "24.8%", "sampleSize": 58, "confidence": "high" },
-      "powerPlayRank": { "value": "8th", "sampleSize": 32, "confidence": "high" },
-      "penaltyKill": { "value": "78.1%", "sampleSize": 58, "confidence": "high" },
-      "penaltyKillRank": { "value": "19th", "sampleSize": 32, "confidence": "high" },
-      "videoChecks": ["Stützle entries under pressure", "Tkachuk net-front seals", "Sanderson retrieval routes"]
+      "powerPlay": {
+        "value": 0.248,
+        "sampleSize": 58,
+        "confidence": "high"
+      },
+      "powerPlayRank": 8,
+      "penaltyKill": {
+        "value": 0.781,
+        "sampleSize": 58,
+        "confidence": "high"
+      },
+      "penaltyKillRank": 19,
+      "videoChecks": [
+        "Stützle entries under pressure",
+        "Tkachuk net-front seals",
+        "Sanderson retrieval routes"
+      ]
     },
     "specialTeams": {
       "powerPlayUnits": [
-        { "name": "PP Unit 1", "players": ["Tkachuk", "Stützle", "Batherson", "Norris", "Sanderson"] },
-        { "name": "PP Unit 2", "players": ["Giroux", "Pinto", "Greig", "Chabot", "Amadio"] }
+        {
+          "name": "PP Unit 1",
+          "players": [
+            {
+              "playerId": 8478469,
+              "name": "Brady Tkachuk",
+              "position": "LW"
+            },
+            {
+              "playerId": 8482116,
+              "name": "Tim Stützle",
+              "position": "C"
+            },
+            {
+              "playerId": 8479366,
+              "name": "Drake Batherson",
+              "position": "RW"
+            },
+            {
+              "playerId": 8480064,
+              "name": "Josh Norris",
+              "position": "C"
+            },
+            {
+              "playerId": 8482105,
+              "name": "Jake Sanderson",
+              "position": "LD"
+            }
+          ]
+        },
+        {
+          "name": "PP Unit 2",
+          "players": [
+            {
+              "playerId": 8473512,
+              "name": "Claude Giroux",
+              "position": "RW"
+            },
+            {
+              "playerId": 8481596,
+              "name": "Shane Pinto",
+              "position": "C"
+            },
+            {
+              "playerId": 8482175,
+              "name": "Ridly Greig",
+              "position": "LW"
+            },
+            {
+              "playerId": 8478489,
+              "name": "Thomas Chabot",
+              "position": "LD"
+            },
+            {
+              "playerId": 8476879,
+              "name": "Michael Amadio",
+              "position": "RW"
+            }
+          ]
+        }
       ],
       "shotMap": [
-        { "x": 82, "y": 4, "danger": 5 }, { "x": 78, "y": -8, "danger": 4 }, { "x": 64, "y": 22, "danger": 2 },
-        { "x": 71, "y": -18, "danger": 3 }, { "x": 54, "y": 8, "danger": 2 }, { "x": 85, "y": 12, "danger": 4 },
-        { "x": 45, "y": -25, "danger": 1 }, { "x": 74, "y": 7, "danger": 5 }, { "x": 61, "y": -4, "danger": 3 }
+        {
+          "x": 82,
+          "y": 4,
+          "xg": 0.175
+        },
+        {
+          "x": 78,
+          "y": -8,
+          "xg": 0.14
+        },
+        {
+          "x": 64,
+          "y": 22,
+          "xg": 0.07
+        },
+        {
+          "x": 71,
+          "y": -18,
+          "xg": 0.105
+        },
+        {
+          "x": 54,
+          "y": 8,
+          "xg": 0.07
+        },
+        {
+          "x": 85,
+          "y": 12,
+          "xg": 0.14
+        },
+        {
+          "x": 45,
+          "y": -25,
+          "xg": 0.035
+        },
+        {
+          "x": 74,
+          "y": 7,
+          "xg": 0.175
+        },
+        {
+          "x": 61,
+          "y": -4,
+          "xg": 0.105
+        }
       ],
-      "zoneTime": { "value": "38.4s", "sampleSize": 96, "confidence": "high" },
-      "leagueZoneTime": { "value": "34.1s", "sampleSize": 1502, "confidence": "high" },
       "penalties": [
-        { "player": "Brady Tkachuk", "taken": { "value": 24, "sampleSize": 56, "confidence": "high" }, "drawn": { "value": 31, "sampleSize": 56, "confidence": "high" }, "period": { "value": "2nd", "sampleSize": 55, "confidence": "high" } },
-        { "player": "Ridly Greig", "taken": { "value": 19, "sampleSize": 52, "confidence": "high" }, "drawn": { "value": 17, "sampleSize": 52, "confidence": "high" }, "period": { "value": "3rd", "sampleSize": 49, "confidence": "medium" } },
-        { "player": "Tim Stützle", "taken": { "value": 8, "sampleSize": 58, "confidence": "high" }, "drawn": { "value": 28, "sampleSize": 58, "confidence": "high" }, "period": { "value": "1st", "sampleSize": 50, "confidence": "medium" } },
-        { "player": "Thomas Chabot", "taken": { "value": 14, "sampleSize": 51, "confidence": "high" }, "drawn": { "value": 10, "sampleSize": 51, "confidence": "high" }, "period": { "value": "2nd", "sampleSize": 47, "confidence": "medium" } }
+        {
+          "player": {
+            "playerId": 8478469,
+            "name": "Brady Tkachuk",
+            "position": "LW"
+          },
+          "taken": 24,
+          "drawn": 31,
+          "byPeriod": {
+            "p1": 8,
+            "p2": 10,
+            "p3": 6,
+            "ot": 0
+          }
+        },
+        {
+          "player": {
+            "playerId": 8482175,
+            "name": "Ridly Greig",
+            "position": "LW"
+          },
+          "taken": 19,
+          "drawn": 17,
+          "byPeriod": {
+            "p1": 6,
+            "p2": 6,
+            "p3": 9,
+            "ot": 0
+          }
+        },
+        {
+          "player": {
+            "playerId": 8482116,
+            "name": "Tim Stützle",
+            "position": "C"
+          },
+          "taken": 8,
+          "drawn": 28,
+          "byPeriod": {
+            "p1": 4,
+            "p2": 2,
+            "p3": 2,
+            "ot": 0
+          }
+        },
+        {
+          "player": {
+            "playerId": 8478489,
+            "name": "Thomas Chabot",
+            "position": "LD"
+          },
+          "taken": 14,
+          "drawn": 10,
+          "byPeriod": {
+            "p1": 4,
+            "p2": 6,
+            "p3": 4,
+            "ot": 0
+          }
+        }
       ],
-      "videoChecks": ["Umbrella rotation after lost draw", "Batherson weak-side release", "PK clears on rimmed pucks"]
+      "videoChecks": [
+        "Umbrella rotation after lost draw",
+        "Batherson weak-side release",
+        "PK clears on rimmed pucks"
+      ],
+      "zoneTimePct": {
+        "value": 0.624,
+        "sampleSize": 96,
+        "confidence": "high"
+      },
+      "leagueZoneTimePct": {
+        "value": 0.571,
+        "sampleSize": 1502,
+        "confidence": "high"
+      }
     },
     "faceoffs": {
       "centers": [
         {
-          "name": "Tim Stützle",
-          "overall": { "value": "48.2%", "sampleSize": 611, "confidence": "high" },
-          "offensiveZone": { "value": "46.9%", "sampleSize": 202, "confidence": "high" },
-          "neutralZone": { "value": "50.1%", "sampleSize": 188, "confidence": "high" },
-          "defensiveZone": { "value": "47.8%", "sampleSize": 221, "confidence": "high" },
-          "evenStrength": { "value": "48.6%", "sampleSize": 489, "confidence": "high" },
-          "powerPlay": { "value": "46.1%", "sampleSize": 76, "confidence": "medium" },
-          "penaltyKill": { "value": "49.0%", "sampleSize": 46, "confidence": "medium" }
+          "overall": {
+            "value": 0.482,
+            "sampleSize": 611,
+            "confidence": "high"
+          },
+          "offensiveZone": {
+            "value": 0.469,
+            "sampleSize": 202,
+            "confidence": "high"
+          },
+          "neutralZone": {
+            "value": 0.501,
+            "sampleSize": 188,
+            "confidence": "high"
+          },
+          "defensiveZone": {
+            "value": 0.478,
+            "sampleSize": 221,
+            "confidence": "high"
+          },
+          "evenStrength": {
+            "value": 0.486,
+            "sampleSize": 489,
+            "confidence": "high"
+          },
+          "powerPlay": {
+            "value": 0.461,
+            "sampleSize": 76,
+            "confidence": "medium"
+          },
+          "penaltyKill": {
+            "value": 0.49,
+            "sampleSize": 46,
+            "confidence": "medium"
+          },
+          "player": {
+            "playerId": 8482116,
+            "name": "Tim Stützle",
+            "position": "C"
+          }
         },
         {
-          "name": "Josh Norris",
-          "overall": { "value": "52.7%", "sampleSize": 472, "confidence": "high" },
-          "offensiveZone": { "value": "54.1%", "sampleSize": 158, "confidence": "high" },
-          "neutralZone": { "value": "51.3%", "sampleSize": 141, "confidence": "high" },
-          "defensiveZone": { "value": "52.4%", "sampleSize": 173, "confidence": "high" },
-          "evenStrength": { "value": "52.2%", "sampleSize": 361, "confidence": "high" },
-          "powerPlay": { "value": "55.2%", "sampleSize": 67, "confidence": "medium" },
-          "penaltyKill": { "value": "52.3%", "sampleSize": 44, "confidence": "medium" }
+          "overall": {
+            "value": 0.527,
+            "sampleSize": 472,
+            "confidence": "high"
+          },
+          "offensiveZone": {
+            "value": 0.541,
+            "sampleSize": 158,
+            "confidence": "high"
+          },
+          "neutralZone": {
+            "value": 0.513,
+            "sampleSize": 141,
+            "confidence": "high"
+          },
+          "defensiveZone": {
+            "value": 0.524,
+            "sampleSize": 173,
+            "confidence": "high"
+          },
+          "evenStrength": {
+            "value": 0.522,
+            "sampleSize": 361,
+            "confidence": "high"
+          },
+          "powerPlay": {
+            "value": 0.552,
+            "sampleSize": 67,
+            "confidence": "medium"
+          },
+          "penaltyKill": {
+            "value": 0.523,
+            "sampleSize": 44,
+            "confidence": "medium"
+          },
+          "player": {
+            "playerId": 8480064,
+            "name": "Josh Norris",
+            "position": "C"
+          }
         },
         {
-          "name": "Shane Pinto",
-          "overall": { "value": "49.6%", "sampleSize": 389, "confidence": "high" },
-          "offensiveZone": { "value": "44.8%", "sampleSize": 143, "confidence": "high" },
-          "neutralZone": { "value": "51.5%", "sampleSize": 119, "confidence": "high" },
-          "defensiveZone": { "value": "53.1%", "sampleSize": 127, "confidence": "high" },
-          "evenStrength": { "value": "49.2%", "sampleSize": 298, "confidence": "high" },
-          "powerPlay": { "value": "47.7%", "sampleSize": 44, "confidence": "medium" },
-          "penaltyKill": { "value": "54.2%", "sampleSize": 47, "confidence": "medium" }
+          "overall": {
+            "value": 0.496,
+            "sampleSize": 389,
+            "confidence": "high"
+          },
+          "offensiveZone": {
+            "value": 0.448,
+            "sampleSize": 143,
+            "confidence": "high"
+          },
+          "neutralZone": {
+            "value": 0.515,
+            "sampleSize": 119,
+            "confidence": "high"
+          },
+          "defensiveZone": {
+            "value": 0.531,
+            "sampleSize": 127,
+            "confidence": "high"
+          },
+          "evenStrength": {
+            "value": 0.492,
+            "sampleSize": 298,
+            "confidence": "high"
+          },
+          "powerPlay": {
+            "value": 0.477,
+            "sampleSize": 44,
+            "confidence": "medium"
+          },
+          "penaltyKill": {
+            "value": 0.542,
+            "sampleSize": 47,
+            "confidence": "medium"
+          },
+          "player": {
+            "playerId": 8481596,
+            "name": "Shane Pinto",
+            "position": "C"
+          }
         }
       ],
-      "detroitCenters": ["Dylan Larkin", "Marco Kasper", "Andrew Copp"],
-      "matchupMatrix": [
-        { "opponent": "Tim Stützle", "values": [
-          { "value": "46.0%", "sampleSize": 25, "confidence": "medium" },
-          { "value": "51.7%", "sampleSize": 29, "confidence": "medium" },
-          { "value": "48.1%", "sampleSize": 27, "confidence": "medium" }
-        ] },
-        { "opponent": "Josh Norris", "values": [
-          { "value": "50.0%", "sampleSize": 22, "confidence": "medium" },
-          { "value": "55.6%", "sampleSize": 18, "confidence": "low" },
-          { "value": "53.8%", "sampleSize": 26, "confidence": "medium" }
-        ] },
-        { "opponent": "Shane Pinto", "values": [
-          { "value": "43.5%", "sampleSize": 23, "confidence": "medium" },
-          { "value": "47.4%", "sampleSize": 19, "confidence": "low" },
-          { "value": "50.0%", "sampleSize": 20, "confidence": "medium" }
-        ] }
+      "detroitCenters": [
+        {
+          "playerId": 8477946,
+          "name": "Dylan Larkin",
+          "position": "C"
+        },
+        {
+          "playerId": 8482660,
+          "name": "Marco Kasper",
+          "position": "C"
+        },
+        {
+          "playerId": 8477429,
+          "name": "Andrew Copp",
+          "position": "C"
+        }
       ],
-      "postWinShotAttempts": { "value": "31.6%", "sampleSize": 143, "confidence": "high" },
-      "videoChecks": ["Norris forehand tie-up", "Pinto OZ pull-back", "Wingers cheating inside hashmarks"]
+      "matchupMatrix": [
+        {
+          "opponentPlayerId": 8482116,
+          "detroitPlayerId": 8477946,
+          "winPct": {
+            "value": 0.46,
+            "sampleSize": 25,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8482116,
+          "detroitPlayerId": 8482660,
+          "winPct": {
+            "value": 0.517,
+            "sampleSize": 29,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8482116,
+          "detroitPlayerId": 8477429,
+          "winPct": {
+            "value": 0.481,
+            "sampleSize": 27,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8480064,
+          "detroitPlayerId": 8477946,
+          "winPct": {
+            "value": 0.5,
+            "sampleSize": 22,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8480064,
+          "detroitPlayerId": 8482660,
+          "winPct": {
+            "value": 0.556,
+            "sampleSize": 18,
+            "confidence": "low"
+          }
+        },
+        {
+          "opponentPlayerId": 8480064,
+          "detroitPlayerId": 8477429,
+          "winPct": {
+            "value": 0.538,
+            "sampleSize": 26,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8481596,
+          "detroitPlayerId": 8477946,
+          "winPct": {
+            "value": 0.435,
+            "sampleSize": 23,
+            "confidence": "medium"
+          }
+        },
+        {
+          "opponentPlayerId": 8481596,
+          "detroitPlayerId": 8482660,
+          "winPct": {
+            "value": 0.474,
+            "sampleSize": 19,
+            "confidence": "low"
+          }
+        },
+        {
+          "opponentPlayerId": 8481596,
+          "detroitPlayerId": 8477429,
+          "winPct": {
+            "value": 0.5,
+            "sampleSize": 20,
+            "confidence": "medium"
+          }
+        }
+      ],
+      "postWinShotAttempts": {
+        "value": 0.316,
+        "sampleSize": 143,
+        "confidence": "high"
+      },
+      "videoChecks": [
+        "Norris forehand tie-up",
+        "Pinto OZ pull-back",
+        "Wingers cheating inside hashmarks"
+      ]
     },
     "goalie": {
-      "name": "Linus Ullmark",
       "zones": [
-        { "label": "High danger", "x": 50, "y": 50, "stat": { "value": ".812", "sampleSize": 168, "confidence": "high" } },
-        { "label": "Mid", "x": 28, "y": 28, "stat": { "value": ".906", "sampleSize": 224, "confidence": "high" } },
-        { "label": "Long", "x": 72, "y": 28, "stat": { "value": ".963", "sampleSize": 301, "confidence": "high" } }
+        {
+          "zoneId": "high_danger",
+          "savePct": {
+            "value": 0.812,
+            "sampleSize": 168,
+            "confidence": "high"
+          }
+        },
+        {
+          "zoneId": "mid_range",
+          "savePct": {
+            "value": 0.906,
+            "sampleSize": 224,
+            "confidence": "high"
+          }
+        },
+        {
+          "zoneId": "long_range",
+          "savePct": {
+            "value": 0.963,
+            "sampleSize": 301,
+            "confidence": "high"
+          }
+        }
       ],
       "lastTen": [
-        { "label": "Jan 28", "value": 0.903 }, { "label": "Jan 31", "value": 0.929 },
-        { "label": "Feb 2", "value": 0.917 }, { "label": "Feb 4", "value": 0.943 },
-        { "label": "Feb 7", "value": 0.889 }, { "label": "Feb 9", "value": 0.926 },
-        { "label": "Feb 11", "value": 0.933 }, { "label": "Feb 14", "value": 0.914 },
-        { "label": "Feb 17", "value": 0.938 }, { "label": "Feb 20", "value": 0.921 }
+        {
+          "label": "Jan 28",
+          "value": {
+            "value": 0.903,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Jan 31",
+          "value": {
+            "value": 0.929,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 2",
+          "value": {
+            "value": 0.917,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 4",
+          "value": {
+            "value": 0.943,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 7",
+          "value": {
+            "value": 0.889,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 9",
+          "value": {
+            "value": 0.926,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 11",
+          "value": {
+            "value": 0.933,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 14",
+          "value": {
+            "value": 0.914,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 17",
+          "value": {
+            "value": 0.938,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        },
+        {
+          "label": "Feb 20",
+          "value": {
+            "value": 0.921,
+            "sampleSize": 1,
+            "confidence": "medium"
+          }
+        }
       ],
       "shotTypes": [
-        { "type": "Wrist", "stat": { "value": ".919", "sampleSize": 418, "confidence": "high" } },
-        { "type": "Snap", "stat": { "value": ".906", "sampleSize": 152, "confidence": "high" } },
-        { "type": "Slap", "stat": { "value": ".934", "sampleSize": 106, "confidence": "high" } },
-        { "type": "Tip", "stat": { "value": ".771", "sampleSize": 48, "confidence": "medium" } },
-        { "type": "Backhand", "stat": { "value": ".875", "sampleSize": 56, "confidence": "medium" } }
+        {
+          "type": "Wrist",
+          "savePct": {
+            "value": 0.919,
+            "sampleSize": 418,
+            "confidence": "high"
+          }
+        },
+        {
+          "type": "Snap",
+          "savePct": {
+            "value": 0.906,
+            "sampleSize": 152,
+            "confidence": "high"
+          }
+        },
+        {
+          "type": "Slap",
+          "savePct": {
+            "value": 0.934,
+            "sampleSize": 106,
+            "confidence": "high"
+          }
+        },
+        {
+          "type": "Tip",
+          "savePct": {
+            "value": 0.771,
+            "sampleSize": 48,
+            "confidence": "medium"
+          }
+        },
+        {
+          "type": "Backhand",
+          "savePct": {
+            "value": 0.875,
+            "sampleSize": 56,
+            "confidence": "medium"
+          }
+        }
       ],
-      "videoChecks": ["Post integration on low-high plays", "Puck tracking through layered screens", "Rebound direction on blocker side"]
+      "videoChecks": [
+        "Post integration on low-high plays",
+        "Puck tracking through layered screens",
+        "Rebound direction on blocker side"
+      ],
+      "player": {
+        "playerId": 8476999,
+        "name": "Linus Ullmark",
+        "position": "G"
+      }
     },
     "gameState": {
       "shotRates": [
-        { "state": "Leading", "for": { "value": 49.2, "sampleSize": 734, "confidence": "high" }, "against": { "value": 56.8, "sampleSize": 734, "confidence": "high" } },
-        { "state": "Tied", "for": { "value": 57.1, "sampleSize": 891, "confidence": "high" }, "against": { "value": 52.4, "sampleSize": 891, "confidence": "high" } },
-        { "state": "Trailing", "for": { "value": 63.4, "sampleSize": 612, "confidence": "high" }, "against": { "value": 49.7, "sampleSize": 612, "confidence": "high" } }
+        {
+          "state": "Leading",
+          "for": {
+            "value": 49.2,
+            "sampleSize": 734,
+            "confidence": "high"
+          },
+          "against": {
+            "value": 56.8,
+            "sampleSize": 734,
+            "confidence": "high"
+          }
+        },
+        {
+          "state": "Tied",
+          "for": {
+            "value": 57.1,
+            "sampleSize": 891,
+            "confidence": "high"
+          },
+          "against": {
+            "value": 52.4,
+            "sampleSize": 891,
+            "confidence": "high"
+          }
+        },
+        {
+          "state": "Trailing",
+          "for": {
+            "value": 63.4,
+            "sampleSize": 612,
+            "confidence": "high"
+          },
+          "against": {
+            "value": 49.7,
+            "sampleSize": 612,
+            "confidence": "high"
+          }
+        }
       ],
       "goalsByPeriod": [
-        { "period": "1st", "for": { "value": 47, "sampleSize": 58, "confidence": "high" }, "against": { "value": 54, "sampleSize": 58, "confidence": "high" } },
-        { "period": "2nd", "for": { "value": 61, "sampleSize": 58, "confidence": "high" }, "against": { "value": 50, "sampleSize": 58, "confidence": "high" } },
-        { "period": "3rd", "for": { "value": 58, "sampleSize": 58, "confidence": "high" }, "against": { "value": 55, "sampleSize": 58, "confidence": "high" } }
+        {
+          "period": "1st",
+          "for": 47,
+          "against": 54
+        },
+        {
+          "period": "2nd",
+          "for": 61,
+          "against": 50
+        },
+        {
+          "period": "3rd",
+          "for": 58,
+          "against": 55
+        }
       ],
-      "emptyNetPull": { "value": "2:18 remaining", "sampleSize": 17, "confidence": "medium" },
-      "leagueEmptyNetPull": { "value": "2:05 remaining", "sampleSize": 386, "confidence": "high" },
-      "videoChecks": ["Bench trigger for goalie pull", "D activation while trailing", "Neutral-zone posture with lead"]
+      "emptyNetPull": 138,
+      "leagueEmptyNetPull": 125,
+      "videoChecks": [
+        "Bench trigger for goalie pull",
+        "D activation while trailing",
+        "Neutral-zone posture with lead"
+      ]
     },
     "playerTargets": {
       "pressure": [
-        { "name": "Travis Hamonic", "position": "RD", "giveaways": { "value": 41, "sampleSize": 33, "confidence": "high" }, "forecheckNote": "Close on his backhand; first option is the hard rim." },
-        { "name": "Tyler Kleven", "position": "LD", "giveaways": { "value": 36, "sampleSize": 41, "confidence": "high" }, "forecheckNote": "Force a second touch below the goal line." },
-        { "name": "Thomas Chabot", "position": "LD", "giveaways": { "value": 39, "sampleSize": 51, "confidence": "high" }, "forecheckNote": "Take away middle and invite the reverse." }
+        {
+          "player": {
+            "playerId": 8474612,
+            "name": "Travis Hamonic",
+            "position": "RD"
+          },
+          "giveaways": 41,
+          "forecheckNote": "Close on his backhand; first option is the hard rim."
+        },
+        {
+          "player": {
+            "playerId": 8482781,
+            "name": "Tyler Kleven",
+            "position": "LD"
+          },
+          "giveaways": 36,
+          "forecheckNote": "Force a second touch below the goal line."
+        },
+        {
+          "player": {
+            "playerId": 8478489,
+            "name": "Thomas Chabot",
+            "position": "LD"
+          },
+          "giveaways": 39,
+          "forecheckNote": "Take away middle and invite the reverse."
+        }
       ],
       "watch": [
-        { "name": "Tim Stützle", "position": "C", "topSpeed": { "value": "23.4 mph", "sampleSize": 58, "confidence": "high" }, "shotSpeed": { "value": "91.7 mph", "sampleSize": 88, "confidence": "high" }, "threatNote": "Changes pace through the neutral zone and attacks inside shoulder." },
-        { "name": "Brady Tkachuk", "position": "LW", "topSpeed": { "value": "22.1 mph", "sampleSize": 56, "confidence": "high" }, "shotSpeed": { "value": "94.2 mph", "sampleSize": 126, "confidence": "high" }, "threatNote": "Arrives late at the back post and wins inside position." },
-        { "name": "Drake Batherson", "position": "RW", "topSpeed": { "value": "22.8 mph", "sampleSize": 58, "confidence": "high" }, "shotSpeed": { "value": "93.5 mph", "sampleSize": 111, "confidence": "high" }, "threatNote": "Release threat from the weak-side dot on delayed entries." }
+        {
+          "player": {
+            "playerId": 8482116,
+            "name": "Tim Stützle",
+            "position": "C"
+          },
+          "topSpeed": 23.4,
+          "shotSpeed": 91.7,
+          "threatNote": "Changes pace through the neutral zone and attacks inside shoulder."
+        },
+        {
+          "player": {
+            "playerId": 8478469,
+            "name": "Brady Tkachuk",
+            "position": "LW"
+          },
+          "topSpeed": 22.1,
+          "shotSpeed": 94.2,
+          "threatNote": "Arrives late at the back post and wins inside position."
+        },
+        {
+          "player": {
+            "playerId": 8479366,
+            "name": "Drake Batherson",
+            "position": "RW"
+          },
+          "topSpeed": 22.8,
+          "shotSpeed": 93.5,
+          "threatNote": "Release threat from the weak-side dot on delayed entries."
+        }
       ],
-      "videoChecks": ["Hamonic retrieval under F2 pressure", "Stützle neutral-zone acceleration", "Tkachuk routes after point shots"]
+      "videoChecks": [
+        "Hamonic retrieval under F2 pressure",
+        "Stützle neutral-zone acceleration",
+        "Tkachuk routes after point shots"
+      ]
     }
   },
   "gm": {
     "summary": {
       "sustainability": {
-        "shootingPct": { "value": "10.8%", "sampleSize": 1734, "confidence": "high" },
-        "expectedShootingPct": { "value": "9.7%", "sampleSize": 1734, "confidence": "medium", "isEstimate": true },
-        "savePct": { "value": ".910", "sampleSize": 1689, "confidence": "high" },
-        "expectedSavePct": { "value": ".904", "sampleSize": 1689, "confidence": "medium", "isEstimate": true },
-        "pdo": { "value": 101.8, "sampleSize": 58, "confidence": "high" },
-        "expectedPdo": { "value": 100.1, "sampleSize": 58, "confidence": "medium", "isEstimate": true },
-        "regressionFlag": { "value": "Moderate downside", "sampleSize": 58, "confidence": "medium", "isEstimate": true }
+        "shootingPct": {
+          "value": 0.108,
+          "sampleSize": 1734,
+          "confidence": "high"
+        },
+        "expectedShootingPct": {
+          "value": 0.097,
+          "sampleSize": 1734,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "savePct": {
+          "value": 0.91,
+          "sampleSize": 1689,
+          "confidence": "high"
+        },
+        "expectedSavePct": {
+          "value": 0.904,
+          "sampleSize": 1689,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "pdo": {
+          "value": 1.018,
+          "sampleSize": 58,
+          "confidence": "high"
+        },
+        "expectedPdo": {
+          "value": 1.001,
+          "sampleSize": 58,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "regressionFlag": "Moderate downside"
       },
-      "videoChecks": ["Shooting quality driving finishing spike", "Goaltending performance after defensive breakdowns", "Top-six deployment in tied games"]
+      "videoChecks": [
+        "Shooting quality driving finishing spike",
+        "Goaltending performance after defensive breakdowns",
+        "Top-six deployment in tied games"
+      ]
     },
     "rosterChanges": {
       "changes": [
-        { "date": "Feb 20", "player": "Matthew Highmore", "change": "Recalled", "detail": "Joined fourth line at morning skate", "status": { "value": "Available", "sampleSize": 1, "confidence": "medium" } },
-        { "date": "Feb 18", "player": "Nick Cousins", "change": "Left game", "detail": "Missed final 11:42 after blocked shot", "status": { "value": "Inferred injury", "sampleSize": 1, "confidence": "low", "isEstimate": true } },
-        { "date": "Feb 15", "player": "Artem Zub", "change": "Returned", "detail": "Restored to top pair with Sanderson", "status": { "value": "Active", "sampleSize": 3, "confidence": "high" } }
+        {
+          "date": "Feb 20",
+          "player": {
+            "playerId": 8478007,
+            "name": "Matthew Highmore",
+            "position": "RW"
+          },
+          "change": "Recalled",
+          "detail": "Joined fourth line at morning skate",
+          "status": "Available"
+        },
+        {
+          "date": "Feb 18",
+          "player": {
+            "playerId": 8476393,
+            "name": "Nick Cousins",
+            "position": "RW"
+          },
+          "change": "Left game",
+          "detail": "Missed final 11:42 after blocked shot",
+          "status": "Inferred injury",
+          "isEstimate": true
+        },
+        {
+          "date": "Feb 15",
+          "player": {
+            "playerId": 8482245,
+            "name": "Artem Zub",
+            "position": "RD"
+          },
+          "change": "Returned",
+          "detail": "Restored to top pair with Sanderson",
+          "status": "Active"
+        }
       ]
     },
     "standings": {
-      "pointsPace": { "value": 93, "sampleSize": 58, "confidence": "high", "isEstimate": true },
-      "playoffGap": { "value": "+2 points", "sampleSize": 58, "confidence": "high" },
+      "pointsPace": 93,
+      "playoffGap": 2,
       "opponentMeaning": "A regulation win creates separation in the second wild-card race.",
-      "detroitMeaning": "Detroit can pull level on points while retaining a game in hand."
+      "detroitMeaning": "Detroit can pull level on points while retaining a game in hand.",
+      "pointsPaceIsEstimate": true
     },
     "headToHead": {
       "meetings": [
-        { "season": "2024–25", "date": "Jan 7", "result": "OTT 4–2 DET", "shots": { "value": "34–29 OTT", "sampleSize": 63, "confidence": "high" }, "expectedGoals": { "value": "3.1–2.6 OTT", "sampleSize": 63, "confidence": "medium", "isEstimate": true }, "specialTeams": { "value": "OTT 2/5 · DET 1/4", "sampleSize": 9, "confidence": "high" } },
-        { "season": "2024–25", "date": "Dec 5", "result": "DET 3–1 OTT", "shots": { "value": "31–27 DET", "sampleSize": 58, "confidence": "high" }, "expectedGoals": { "value": "2.8–2.2 DET", "sampleSize": 58, "confidence": "medium", "isEstimate": true }, "specialTeams": { "value": "DET 1/3 · OTT 0/2", "sampleSize": 5, "confidence": "high" } },
-        { "season": "2023–24", "date": "Feb 19", "result": "OTT 3–2 DET", "shots": { "value": "37–30 OTT", "sampleSize": 67, "confidence": "high" }, "expectedGoals": { "value": "3.5–2.4 OTT", "sampleSize": 67, "confidence": "medium", "isEstimate": true }, "specialTeams": { "value": "OTT 1/4 · DET 0/3", "sampleSize": 7, "confidence": "high" } }
+        {
+          "season": "2024–25",
+          "date": "Jan 7",
+          "result": "OTT 4–2 DET",
+          "shots": {
+            "opponent": 34,
+            "detroit": 29
+          },
+          "expectedGoals": {
+            "opponent": 3.1,
+            "detroit": 2.6,
+            "isEstimate": true
+          },
+          "specialTeams": {
+            "opponentGoals": 2,
+            "opponentOpportunities": 5,
+            "detroitGoals": 1,
+            "detroitOpportunities": 4
+          }
+        },
+        {
+          "season": "2024–25",
+          "date": "Dec 5",
+          "result": "DET 3–1 OTT",
+          "shots": {
+            "opponent": 27,
+            "detroit": 31
+          },
+          "expectedGoals": {
+            "opponent": 2.2,
+            "detroit": 2.8,
+            "isEstimate": true
+          },
+          "specialTeams": {
+            "opponentGoals": 0,
+            "opponentOpportunities": 2,
+            "detroitGoals": 1,
+            "detroitOpportunities": 3
+          }
+        },
+        {
+          "season": "2023–24",
+          "date": "Feb 19",
+          "result": "OTT 3–2 DET",
+          "shots": {
+            "opponent": 37,
+            "detroit": 30
+          },
+          "expectedGoals": {
+            "opponent": 3.5,
+            "detroit": 2.4,
+            "isEstimate": true
+          },
+          "specialTeams": {
+            "opponentGoals": 1,
+            "opponentOpportunities": 4,
+            "detroitGoals": 0,
+            "detroitOpportunities": 3
+          }
+        }
       ]
     },
     "players": [
       {
-        "id": "tim-stutzle",
-        "name": "Tim Stützle",
-        "position": "C",
-        "age": { "value": 23, "sampleSize": 1, "confidence": "high" },
+        "age": 23,
         "toi": {
-          "evenStrength": { "value": "15:49", "sampleSize": 58, "confidence": "high" },
-          "powerPlay": { "value": "3:24", "sampleSize": 58, "confidence": "high" },
-          "penaltyKill": { "value": "0:51", "sampleSize": 58, "confidence": "high" }
+          "evenStrength": 949,
+          "powerPlay": 204,
+          "penaltyKill": 51
         },
-        "zoneStarts": { "value": "61.2% OZ", "sampleSize": 508, "confidence": "high" },
-        "onIceGoalsPct": { "value": "55.8%", "sampleSize": 91, "confidence": "high" },
-        "onIceExpectedGoalsPct": { "value": "53.4%", "sampleSize": 934, "confidence": "medium", "isEstimate": true },
-        "topSpeed": { "value": "23.4 mph", "sampleSize": 58, "confidence": "high" },
-        "shotSpeed": { "value": "91.7 mph", "sampleSize": 88, "confidence": "high" },
-        "shotMap": [{ "x": 78, "y": 7, "danger": 5 }, { "x": 71, "y": -12, "danger": 4 }, { "x": 63, "y": 19, "danger": 3 }, { "x": 84, "y": -4, "danger": 5 }, { "x": 53, "y": 3, "danger": 2 }],
-        "notes": "Dynamic transition driver. Track decision quality against pressure and ability to create off controlled entries."
+        "zoneStarts": {
+          "value": 0.612,
+          "sampleSize": 508,
+          "confidence": "high"
+        },
+        "onIceGoalsPct": {
+          "value": 0.558,
+          "sampleSize": 91,
+          "confidence": "high"
+        },
+        "onIceExpectedGoalsPct": {
+          "value": 0.534,
+          "sampleSize": 934,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "topSpeed": 23.4,
+        "shotSpeed": 91.7,
+        "shotMap": [
+          {
+            "x": 78,
+            "y": 7,
+            "xg": 0.175
+          },
+          {
+            "x": 71,
+            "y": -12,
+            "xg": 0.14
+          },
+          {
+            "x": 63,
+            "y": 19,
+            "xg": 0.105
+          },
+          {
+            "x": 84,
+            "y": -4,
+            "xg": 0.175
+          },
+          {
+            "x": 53,
+            "y": 3,
+            "xg": 0.07
+          }
+        ],
+        "notes": "Dynamic transition driver. Track decision quality against pressure and ability to create off controlled entries.",
+        "player": {
+          "playerId": 8482116,
+          "name": "Tim Stützle",
+          "position": "C"
+        }
       },
       {
-        "id": "brady-tkachuk",
-        "name": "Brady Tkachuk",
-        "position": "LW",
-        "age": { "value": 25, "sampleSize": 1, "confidence": "high" },
+        "age": 25,
         "toi": {
-          "evenStrength": { "value": "15:12", "sampleSize": 56, "confidence": "high" },
-          "powerPlay": { "value": "3:18", "sampleSize": 56, "confidence": "high" },
-          "penaltyKill": { "value": "0:42", "sampleSize": 56, "confidence": "medium" }
+          "evenStrength": 912,
+          "powerPlay": 198,
+          "penaltyKill": 42
         },
-        "zoneStarts": { "value": "63.8% OZ", "sampleSize": 481, "confidence": "high" },
-        "onIceGoalsPct": { "value": "54.1%", "sampleSize": 87, "confidence": "high" },
-        "onIceExpectedGoalsPct": { "value": "57.2%", "sampleSize": 902, "confidence": "medium", "isEstimate": true },
-        "topSpeed": { "value": "22.1 mph", "sampleSize": 56, "confidence": "high" },
-        "shotSpeed": { "value": "94.2 mph", "sampleSize": 126, "confidence": "high" },
-        "shotMap": [{ "x": 86, "y": 5, "danger": 5 }, { "x": 82, "y": -3, "danger": 5 }, { "x": 79, "y": 11, "danger": 4 }, { "x": 73, "y": -8, "danger": 4 }, { "x": 67, "y": 17, "danger": 3 }],
-        "notes": "Elite net-front volume and retrieval value. Evaluate discipline and play-driving away from Stützle."
+        "zoneStarts": {
+          "value": 0.638,
+          "sampleSize": 481,
+          "confidence": "high"
+        },
+        "onIceGoalsPct": {
+          "value": 0.541,
+          "sampleSize": 87,
+          "confidence": "high"
+        },
+        "onIceExpectedGoalsPct": {
+          "value": 0.572,
+          "sampleSize": 902,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "topSpeed": 22.1,
+        "shotSpeed": 94.2,
+        "shotMap": [
+          {
+            "x": 86,
+            "y": 5,
+            "xg": 0.175
+          },
+          {
+            "x": 82,
+            "y": -3,
+            "xg": 0.175
+          },
+          {
+            "x": 79,
+            "y": 11,
+            "xg": 0.14
+          },
+          {
+            "x": 73,
+            "y": -8,
+            "xg": 0.14
+          },
+          {
+            "x": 67,
+            "y": 17,
+            "xg": 0.105
+          }
+        ],
+        "notes": "Elite net-front volume and retrieval value. Evaluate discipline and play-driving away from Stützle.",
+        "player": {
+          "playerId": 8478469,
+          "name": "Brady Tkachuk",
+          "position": "LW"
+        }
       },
       {
-        "id": "jake-sanderson",
-        "name": "Jake Sanderson",
-        "position": "LD",
-        "age": { "value": 22, "sampleSize": 1, "confidence": "high" },
+        "age": 22,
         "toi": {
-          "evenStrength": { "value": "18:31", "sampleSize": 58, "confidence": "high" },
-          "powerPlay": { "value": "3:42", "sampleSize": 58, "confidence": "high" },
-          "penaltyKill": { "value": "1:55", "sampleSize": 58, "confidence": "high" }
+          "evenStrength": 1111,
+          "powerPlay": 222,
+          "penaltyKill": 115
         },
-        "zoneStarts": { "value": "51.4% OZ", "sampleSize": 604, "confidence": "high" },
-        "onIceGoalsPct": { "value": "52.9%", "sampleSize": 102, "confidence": "high" },
-        "onIceExpectedGoalsPct": { "value": "54.8%", "sampleSize": 1089, "confidence": "medium", "isEstimate": true },
-        "topSpeed": { "value": "23.0 mph", "sampleSize": 58, "confidence": "high" },
-        "shotSpeed": { "value": "96.4 mph", "sampleSize": 83, "confidence": "high" },
-        "shotMap": [{ "x": 51, "y": 20, "danger": 2 }, { "x": 49, "y": -17, "danger": 2 }, { "x": 61, "y": 23, "danger": 3 }, { "x": 58, "y": -22, "danger": 2 }, { "x": 72, "y": 8, "danger": 3 }],
-        "notes": "Top-pair projection with premium skating. Monitor rush denial, retrieval efficiency and PP deception."
+        "zoneStarts": {
+          "value": 0.514,
+          "sampleSize": 604,
+          "confidence": "high"
+        },
+        "onIceGoalsPct": {
+          "value": 0.529,
+          "sampleSize": 102,
+          "confidence": "high"
+        },
+        "onIceExpectedGoalsPct": {
+          "value": 0.548,
+          "sampleSize": 1089,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "topSpeed": 23.0,
+        "shotSpeed": 96.4,
+        "shotMap": [
+          {
+            "x": 51,
+            "y": 20,
+            "xg": 0.07
+          },
+          {
+            "x": 49,
+            "y": -17,
+            "xg": 0.07
+          },
+          {
+            "x": 61,
+            "y": 23,
+            "xg": 0.105
+          },
+          {
+            "x": 58,
+            "y": -22,
+            "xg": 0.07
+          },
+          {
+            "x": 72,
+            "y": 8,
+            "xg": 0.105
+          }
+        ],
+        "notes": "Top-pair projection with premium skating. Monitor rush denial, retrieval efficiency and PP deception.",
+        "player": {
+          "playerId": 8482105,
+          "name": "Jake Sanderson",
+          "position": "LD"
+        }
       },
       {
-        "id": "drake-batherson",
-        "name": "Drake Batherson",
-        "position": "RW",
-        "age": { "value": 26, "sampleSize": 1, "confidence": "high" },
+        "age": 26,
         "toi": {
-          "evenStrength": { "value": "14:51", "sampleSize": 58, "confidence": "high" },
-          "powerPlay": { "value": "2:57", "sampleSize": 58, "confidence": "high" },
-          "penaltyKill": { "value": "0:00", "sampleSize": 58, "confidence": "high" }
+          "evenStrength": 891,
+          "powerPlay": 177,
+          "penaltyKill": 0
         },
-        "zoneStarts": { "value": "59.7% OZ", "sampleSize": 477, "confidence": "high" },
-        "onIceGoalsPct": { "value": "53.0%", "sampleSize": 83, "confidence": "high" },
-        "onIceExpectedGoalsPct": { "value": "51.9%", "sampleSize": 876, "confidence": "medium", "isEstimate": true },
-        "topSpeed": { "value": "22.8 mph", "sampleSize": 58, "confidence": "high" },
-        "shotSpeed": { "value": "93.5 mph", "sampleSize": 111, "confidence": "high" },
-        "shotMap": [{ "x": 70, "y": -19, "danger": 4 }, { "x": 76, "y": -13, "danger": 5 }, { "x": 61, "y": -23, "danger": 3 }, { "x": 82, "y": 2, "danger": 4 }, { "x": 55, "y": -11, "danger": 2 }],
-        "notes": "Skilled complementary scorer. Evaluate pace under contact and off-puck timing on the weak side."
+        "zoneStarts": {
+          "value": 0.597,
+          "sampleSize": 477,
+          "confidence": "high"
+        },
+        "onIceGoalsPct": {
+          "value": 0.53,
+          "sampleSize": 83,
+          "confidence": "high"
+        },
+        "onIceExpectedGoalsPct": {
+          "value": 0.519,
+          "sampleSize": 876,
+          "confidence": "medium",
+          "isEstimate": true
+        },
+        "topSpeed": 22.8,
+        "shotSpeed": 93.5,
+        "shotMap": [
+          {
+            "x": 70,
+            "y": -19,
+            "xg": 0.14
+          },
+          {
+            "x": 76,
+            "y": -13,
+            "xg": 0.175
+          },
+          {
+            "x": 61,
+            "y": -23,
+            "xg": 0.105
+          },
+          {
+            "x": 82,
+            "y": 2,
+            "xg": 0.14
+          },
+          {
+            "x": 55,
+            "y": -11,
+            "xg": 0.07
+          }
+        ],
+        "notes": "Skilled complementary scorer. Evaluate pace under contact and off-puck timing on the weak side.",
+        "player": {
+          "playerId": 8479366,
+          "name": "Drake Batherson",
+          "position": "RW"
+        }
       }
     ]
   }

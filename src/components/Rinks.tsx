@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { RinkPoint } from "../types/prescout";
+import type { GoalieZoneId, RinkPoint } from "../types/prescout";
 
 interface RinkProps {
   points?: RinkPoint[];
@@ -25,7 +25,7 @@ export function FullRink({ points = [], children, className = "" }: RinkProps) {
           key={`${point.x}-${point.y}-${index}`}
           cx={mapX(point.x)}
           cy={mapY(point.y)}
-          r={1.5 + point.danger * 0.65}
+          r={1.5 + point.xg * 18}
           className="rink-dot"
         />
       ))}
@@ -48,7 +48,7 @@ export function HalfRink({ points = [], className = "" }: RinkProps) {
           key={`${point.x}-${point.y}-${index}`}
           cx={point.x}
           cy={mapY(point.y)}
-          r={1.5 + point.danger * 0.7}
+          r={1.5 + point.xg * 20}
           className="rink-dot"
         />
       ))}
@@ -57,23 +57,32 @@ export function HalfRink({ points = [], className = "" }: RinkProps) {
 }
 
 interface NetFrontProps {
-  zones: Array<{ label: string; x: number; y: number; value: string }>;
+  zones: Array<{ zoneId: GoalieZoneId; value: string }>;
   className?: string;
 }
 
 export function NetFront({ zones, className = "" }: NetFrontProps) {
+  const zoneLayout: Record<GoalieZoneId, { label: string; x: number; y: number }> = {
+    high_danger: { label: "High danger", x: 50, y: 50 },
+    mid_range: { label: "Mid", x: 28, y: 28 },
+    long_range: { label: "Long", x: 72, y: 28 },
+  };
+
   return (
     <svg viewBox="0 0 100 70" className={className} aria-label="Net front save percentage diagram">
       <path d="M20 58 Q20 8 50 5 Q80 8 80 58Z" className="rink-crease" />
       <path d="M34 60V24H66V60" className="rink-net" />
       <line x1="34" y1="42" x2="66" y2="42" className="rink-net-soft" />
-      {zones.map((zone) => (
-        <g key={zone.label}>
-          <circle cx={zone.x} cy={zone.y} r="10" className="rink-zone" />
-          <text x={zone.x} y={zone.y - 1} textAnchor="middle" className="rink-zone-value">{zone.value}</text>
-          <text x={zone.x} y={zone.y + 5} textAnchor="middle" className="rink-zone-label">{zone.label}</text>
-        </g>
-      ))}
+      {zones.map((zone) => {
+        const layout = zoneLayout[zone.zoneId];
+        return (
+          <g key={zone.zoneId}>
+            <circle cx={layout.x} cy={layout.y} r="10" className="rink-zone" />
+            <text x={layout.x} y={layout.y - 1} textAnchor="middle" className="rink-zone-value">{zone.value}</text>
+            <text x={layout.x} y={layout.y + 5} textAnchor="middle" className="rink-zone-label">{layout.label}</text>
+          </g>
+        );
+      })}
     </svg>
   );
 }
