@@ -36,6 +36,7 @@ import { mph, pct, rank, signed, toi } from "./lib/format";
 import type {
   Confidence,
   GmPlayer,
+  KeyStatUnit,
   PrescoutData,
   Stat,
   SummaryData,
@@ -146,6 +147,59 @@ function FactValue({
     </span>
   );
 }
+
+function formatKeyStat(value: number, unit: KeyStatUnit): string {
+  switch (unit) {
+    case "pct":
+      return pct(value);
+    case "signed":
+      return signed(value);
+    case "seconds":
+      return toi(value);
+    case "per60":
+      return `${value.toFixed(1)}/60`;
+    case "count":
+      return String(value);
+  }
+}
+
+const startConfidenceLabels = {
+  confirmed: "Confirmed",
+  likely: "Likely",
+  uncertain: "Uncertain",
+} as const;
+
+const gameStateLabels = {
+  leading: "Leading",
+  tied: "Tied",
+  trailing: "Trailing",
+} as const;
+
+const periodLabels = {
+  p1: "1st",
+  p2: "2nd",
+  p3: "3rd",
+  ot: "OT",
+} as const;
+
+const regressionLabels = {
+  positive: "Positive regression",
+  neutral: "Neutral",
+  negative: "Moderate downside",
+} as const;
+
+const rosterChangeLabels = {
+  in: "In",
+  out: "Out",
+} as const;
+
+const rosterStatusLabels = {
+  healthy_scratch: "Healthy scratch",
+  injury_inferred: "Inferred injury",
+  call_up: "Call-up",
+  trade: "Trade",
+  unknown: "Unknown",
+} as const;
 
 function Card({
   children,
@@ -273,7 +327,7 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
                   <div className="key-title">{key.title}</div>
                   <div className="key-insight">{key.insight}</div>
                 </div>
-                <StatValue stat={key.stat} className="key-stat" format={pct} />
+                <StatValue stat={key.stat} className="key-stat" format={(value) => `${formatKeyStat(value, key.stat.unit)} ${key.stat.label}`} />
               </div>
             ))}
           </div>
@@ -285,7 +339,7 @@ function CoachSummary({ data }: { data: PrescoutData["coach"]["summary"] }) {
               <div className="goalie-mark"><Goal size={23} /></div>
               <div>
                 <div className="goalie-name">{data.goalie.player.name}</div>
-                <FactValue value={data.goalie.startConfidence} className="starter-status" isEstimate={data.goalie.isEstimate} />
+                <FactValue value={startConfidenceLabels[data.goalie.startConfidence]} className="starter-status" isEstimate={data.goalie.isEstimate} />
               </div>
             </div>
             <div className="goalie-stats">
@@ -458,8 +512,8 @@ function GoaliePage({ data }: { data: PrescoutData["coach"]["goalie"] }) {
 
 function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
   if (!data) return <EmptyState />;
-  const shotChart = data.shotRates.map((item) => ({ state: item.state, for: item.for.value, against: item.against.value }));
-  const goalChart = data.goalsByPeriod.map((item) => ({ period: item.period, for: item.for, against: item.against }));
+  const shotChart = data.shotRates.map((item) => ({ state: gameStateLabels[item.state], for: item.for.value, against: item.against.value }));
+  const goalChart = data.goalsByPeriod.map((item) => ({ period: periodLabels[item.period], for: item.for, against: item.against }));
   return (
     <>
       <PageHeader eyebrow="Coach report" title="Game State" description="How Ottawa's behavior changes with the score and clock." />
@@ -477,7 +531,7 @@ function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
               </BarChart>
             </ResponsiveContainer>
           </div>
-          <div className="chart-meta">{data.shotRates.map((row) => <span key={row.state}>{row.state}: <StatMeta stat={row.for} /> <StatMeta stat={row.against} /></span>)}</div>
+          <div className="chart-meta">{data.shotRates.map((row) => <span key={row.state}>{gameStateLabels[row.state]}: <StatMeta stat={row.for} /> <StatMeta stat={row.against} /></span>)}</div>
         </Card>
         <Card title="Empty-net pull" eyebrow="Median trigger">
           <FactValue value={data.emptyNetPull} className="standalone-stat compact" format={toi} />
@@ -496,7 +550,7 @@ function GameStatePage({ data }: { data: PrescoutData["coach"]["gameState"] }) {
                 </BarChart>
               </ResponsiveContainer>
             </div>
-            <div className="period-meta">{data.goalsByPeriod.map((row) => <div key={row.period}><strong>{row.period}</strong><FactValue value={row.for} /><FactValue value={row.against} /></div>)}</div>
+            <div className="period-meta">{data.goalsByPeriod.map((row) => <div key={row.period}><strong>{periodLabels[row.period]}</strong><FactValue value={row.for} /><FactValue value={row.against} /></div>)}</div>
           </div>
         </Card>
       </div>
@@ -552,7 +606,7 @@ function GmSummaryPage({ data }: { data: PrescoutData["gm"] }) {
               <div className="sustain-pair"><span>Shooting</span><StatValue stat={summary.sustainability.shootingPct} className="hero-stat" format={pct} /><div>Expected <StatValue stat={summary.sustainability.expectedShootingPct} format={pct} /></div></div>
               <div className="sustain-pair"><span>Save percentage</span><StatValue stat={summary.sustainability.savePct} className="hero-stat" format={(value) => value.toFixed(3)} /><div>Expected <StatValue stat={summary.sustainability.expectedSavePct} format={(value) => value.toFixed(3)} /></div></div>
               <div className="sustain-pair"><span>PDO</span><StatValue stat={summary.sustainability.pdo} className="hero-stat" format={(value) => (value * 100).toFixed(1)} /><div>Expected <StatValue stat={summary.sustainability.expectedPdo} format={(value) => (value * 100).toFixed(1)} /></div></div>
-              <div className="regression-box"><TrendingUp size={20} /><div><span>Regression outlook</span><FactValue value={summary.sustainability.regressionFlag} /></div></div>
+              <div className="regression-box"><TrendingUp size={20} /><div><span>Regression outlook</span><FactValue value={regressionLabels[summary.sustainability.regressionFlag]} /></div></div>
             </div>
           ) : <EmptyState />}
         </Card>
@@ -563,7 +617,7 @@ function GmSummaryPage({ data }: { data: PrescoutData["gm"] }) {
         </Card>
         <Card title="Last five games: roster movement" eyebrow="Availability signals" className="span-2">
           {data.rosterChanges ? (
-            <div className="timeline">{data.rosterChanges.changes.map((change) => <div className="timeline-row" key={`${change.date}-${change.player.playerId}`}><span className="timeline-date">{change.date}</span><span className="timeline-dot" /><div><strong>{change.player.name}</strong><span>{change.change}</span><p>{change.detail}</p></div><FactValue value={change.status} isEstimate={change.isEstimate} /></div>)}</div>
+            <div className="timeline">{data.rosterChanges.changes.map((change) => <div className="timeline-row" key={`${change.date}-${change.player.playerId}`}><span className="timeline-date">{change.date}</span><span className="timeline-dot" /><div><strong>{change.player.name}</strong><span>{rosterChangeLabels[change.change]}</span><p>{change.detail}</p></div><FactValue value={rosterStatusLabels[change.status]} isEstimate={change.isEstimate} /></div>)}</div>
           ) : <EmptyState />}
         </Card>
         <Card title="Head-to-head" eyebrow="Recent meetings">

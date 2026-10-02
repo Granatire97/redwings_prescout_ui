@@ -1,5 +1,7 @@
 export type Confidence = "high" | "medium" | "low";
+export type KeyStatUnit = "pct" | "count" | "signed" | "seconds" | "per60";
 
+/** Percentage values stored in Stat objects are decimals from 0 to 1. */
 export interface Stat<T> {
   value: T;
   sampleSize: number;
@@ -32,7 +34,9 @@ export interface TrendPoint {
 
 export interface PlayerLineupEntry {
   player: Player;
+  /** Seconds. */
   toiLast5: number;
+  /** Seconds. */
   toiSeason: number;
 }
 
@@ -44,7 +48,10 @@ export interface SummaryData {
   keys: Array<{
     title: string;
     insight: string;
-    stat: Stat<number>;
+    stat: Stat<number> & {
+      label: string;
+      unit: KeyStatUnit;
+    };
   }>;
   forwardLines: PlayerLineupEntry[][];
   defensePairs: PlayerLineupEntry[][];
@@ -52,7 +59,7 @@ export interface SummaryData {
     player: Player;
     savePct: Stat<number>;
     lastTenSavePct: Stat<number>;
-    startConfidence: string;
+    startConfidence: "confirmed" | "likely" | "uncertain";
     isEstimate?: boolean;
   };
   powerPlay: Stat<number>;
@@ -109,16 +116,18 @@ export interface GoalieData {
 
 export interface GameStateData {
   shotRates: Array<{
-    state: string;
+    state: "leading" | "tied" | "trailing";
     for: Stat<number>;
     against: Stat<number>;
   }>;
   goalsByPeriod: Array<{
-    period: string;
+    period: "p1" | "p2" | "p3" | "ot";
     for: number;
     against: number;
   }>;
+  /** Seconds remaining in regulation. */
   emptyNetPull: number;
+  /** Seconds remaining in regulation. */
   leagueEmptyNetPull: number;
   videoChecks: string[];
 }
@@ -131,7 +140,9 @@ export interface PlayerTargetsData {
   }>;
   watch: Array<{
     player: Player;
+    /** Miles per hour. */
     topSpeed: number;
+    /** Miles per hour. */
     shotSpeed: number;
     threatNote: string;
   }>;
@@ -146,7 +157,7 @@ export interface GmSummaryData {
     expectedSavePct: Stat<number>;
     pdo: Stat<number>;
     expectedPdo: Stat<number>;
-    regressionFlag: string;
+    regressionFlag: "positive" | "neutral" | "negative";
   };
   videoChecks: string[];
 }
@@ -155,9 +166,9 @@ export interface RosterChangesData {
   changes: Array<{
     date: string;
     player: Player;
-    change: string;
+    change: "in" | "out";
     detail: string;
-    status: string;
+    status: "healthy_scratch" | "injury_inferred" | "call_up" | "trade" | "unknown";
     isEstimate?: boolean;
   }>;
 }
@@ -190,14 +201,19 @@ export interface GmPlayer {
   player: Player;
   age: number;
   toi: {
+    /** Seconds. */
     evenStrength: number;
+    /** Seconds. */
     powerPlay: number;
+    /** Seconds. */
     penaltyKill: number;
   };
   zoneStarts: Stat<number>;
   onIceGoalsPct: Stat<number>;
   onIceExpectedGoalsPct: Stat<number>;
+  /** Miles per hour. */
   topSpeed: number;
+  /** Miles per hour. */
   shotSpeed: number;
   shotMap: RinkPoint[];
   notes: string;

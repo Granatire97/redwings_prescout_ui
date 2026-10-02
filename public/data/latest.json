@@ -37,7 +37,9 @@
           "stat": {
             "value": 0.38,
             "sampleSize": 214,
-            "confidence": "high"
+            "confidence": "high",
+            "unit": "pct",
+            "label": "slot assists"
           }
         },
         {
@@ -46,7 +48,9 @@
           "stat": {
             "value": 0.294,
             "sampleSize": 34,
-            "confidence": "medium"
+            "confidence": "medium",
+            "unit": "pct",
+            "label": "last 10"
           }
         },
         {
@@ -55,16 +59,20 @@
           "stat": {
             "value": 0.22,
             "sampleSize": 91,
-            "confidence": "medium"
+            "confidence": "medium",
+            "unit": "pct",
+            "label": "failed exits"
           }
         },
         {
           "title": "Own the first ten",
           "insight": "Ottawa has chased the game after slow starts.",
           "stat": {
-            "value": 0.431,
+            "value": -7,
             "sampleSize": 58,
-            "confidence": "high"
+            "confidence": "high",
+            "unit": "signed",
+            "label": "first-period GD"
           }
         },
         {
@@ -73,7 +81,9 @@
           "stat": {
             "value": 0.448,
             "sampleSize": 143,
-            "confidence": "high"
+            "confidence": "high",
+            "unit": "pct",
+            "label": "OZ draws"
           }
         },
         {
@@ -82,7 +92,9 @@
           "stat": {
             "value": 0.781,
             "sampleSize": 64,
-            "confidence": "medium"
+            "confidence": "medium",
+            "unit": "pct",
+            "label": "east–west SV%"
           }
         }
       ],
@@ -282,7 +294,7 @@
           "sampleSize": 10,
           "confidence": "high"
         },
-        "startConfidence": "Likely",
+        "startConfidence": "likely",
         "isEstimate": true
       },
       "powerPlay": {
@@ -896,7 +908,7 @@
     "gameState": {
       "shotRates": [
         {
-          "state": "Leading",
+          "state": "leading",
           "for": {
             "value": 49.2,
             "sampleSize": 734,
@@ -909,7 +921,7 @@
           }
         },
         {
-          "state": "Tied",
+          "state": "tied",
           "for": {
             "value": 57.1,
             "sampleSize": 891,
@@ -922,7 +934,7 @@
           }
         },
         {
-          "state": "Trailing",
+          "state": "trailing",
           "for": {
             "value": 63.4,
             "sampleSize": 612,
@@ -937,17 +949,17 @@
       ],
       "goalsByPeriod": [
         {
-          "period": "1st",
+          "period": "p1",
           "for": 47,
           "against": 54
         },
         {
-          "period": "2nd",
+          "period": "p2",
           "for": 61,
           "against": 50
         },
         {
-          "period": "3rd",
+          "period": "p3",
           "for": 58,
           "against": 55
         }
@@ -1065,7 +1077,7 @@
           "confidence": "medium",
           "isEstimate": true
         },
-        "regressionFlag": "Moderate downside"
+        "regressionFlag": "negative"
       },
       "videoChecks": [
         "Shooting quality driving finishing spike",
@@ -1082,9 +1094,9 @@
             "name": "Matthew Highmore",
             "position": "RW"
           },
-          "change": "Recalled",
+          "change": "in",
           "detail": "Joined fourth line at morning skate",
-          "status": "Available"
+          "status": "call_up"
         },
         {
           "date": "Feb 18",
@@ -1093,9 +1105,9 @@
             "name": "Nick Cousins",
             "position": "RW"
           },
-          "change": "Left game",
+          "change": "out",
           "detail": "Missed final 11:42 after blocked shot",
-          "status": "Inferred injury",
+          "status": "injury_inferred",
           "isEstimate": true
         },
         {
@@ -1105,9 +1117,9 @@
             "name": "Artem Zub",
             "position": "RD"
           },
-          "change": "Returned",
+          "change": "in",
           "detail": "Restored to top pair with Sanderson",
-          "status": "Active"
+          "status": "unknown"
         }
       ]
     },
